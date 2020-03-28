@@ -139,7 +139,7 @@ class PriorityQueue extends Queue {
                         console.log("indss:", priority, index, "dd", min, max);
                         if (priority > list.priority) {
                             min = min && min > index + 1 ? min : index + 1;
-                            length = min + this.lists.length;
+                            length = min + (max||this.lists.length);
                             index = getIndex(length);
                             // console.log('in', index,'pri:', priority);
                         } else {
@@ -151,7 +151,7 @@ class PriorityQueue extends Queue {
                                 index = null;
                             } else {
                                 max = max && max < index ? max : index;
-                                length = max + 1;
+                                length = max ;
                                 index = getIndex(length);
                             }
                             // console.log('in2', index,'pri:', priority);
