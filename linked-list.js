@@ -19,7 +19,7 @@ class LinkedList {
     }
 
     insert(content, index) {
-        if (index < 0 || index > this.length ) {
+        if (index < 0 || index > this.length) {
             throw new Error("index参数不合理");
         }
         const list = new List(content);
@@ -29,15 +29,29 @@ class LinkedList {
             this.header = list;
         } else {
             let i = 0;
-            while (i < index-1) {  //index-1是找的index-1的那个点，index点可以通过它找到
+            while (i < index - 1) {  //index-1是找的index-1的那个点，index点可以通过它找到
                 oldList = oldList.next;
                 i++;
             }
-            let next = oldList.next
+            let next = oldList.next;
             oldList.next = list;
             list.next = next;
         }
         this.length++;
+    }
+
+    get(position) {
+        if (position > this.length - 1 || position < 0) {
+            throw new Error("位置参数超出范围了！");
+        }
+        let current = this.header;
+        if (position === 0) return current;
+        let i = 0;
+        while (i < position) {
+            current = current.next;
+            i++;
+        }
+        return current;
     }
 
     size() {
@@ -75,5 +89,5 @@ linkedList.insert("0", 0);
 linkedList.insert("6", 3);
 linkedList.insert("20", 4);
 linkedList.insert("89", 6);
-
 console.log(linkedList, linkedList.toString(), 888);
+console.log(linkedList.get(3));
