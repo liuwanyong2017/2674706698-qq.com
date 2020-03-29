@@ -10,17 +10,12 @@ class LinkedList {
         if (this.length === 0) {
             this.length += 1;
             return this.header = list;
-        } else {
-            let current;
-            for (let i = 0; i < this.length; i++) {
-                current = i === 0 ? this.header : current.next;
-                if (current && current.next === null) {
-                    this.length += 1;
-                    current.next = list;
-                    break;
-                }
-            }
         }
+        let current = this.header;
+        while (current.next) {
+            current = current.next;
+        }
+        current.next = list;
     }
 
     size() {
