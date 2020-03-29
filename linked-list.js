@@ -5,8 +5,8 @@ class LinkedList {
         this.length = list ? 1 : 0;
     }
 
-    append(content) {
-        const list = new List(content);
+    append(data) {
+        const list = new List(data);
         if (this.length === 0) {
             return this.header = list;
         }
@@ -18,11 +18,11 @@ class LinkedList {
         this.length += 1;
     }
 
-    insert(content, index) {
+    insert(data, index) {
         if (index < 0 || index > this.length) {
             throw new Error("index参数不合理");
         }
-        const list = new List(content);
+        const list = new List(data);
         let oldList = this.header;
         if (index === 0) {
             oldList && (list.next = oldList);
@@ -54,6 +54,22 @@ class LinkedList {
         return current;
     }
 
+    indexOf(data) {
+        let current = this.header;
+        if (!current) return -1;
+        let index ;
+        let i = 0;
+        while (!index && current) {
+            if (current.data === data) {
+                index = i;
+            } else {
+                current = current.next;
+                i++;
+            }
+        }
+        return index >= 0 ? index : -1;
+    }
+
     size() {
         return this.length;
     }
@@ -66,7 +82,7 @@ class LinkedList {
         let current = this.header;
         let res = "";
         while (current) {
-            res += (res ? " -> " : "") + current.content;
+            res += (res ? " -> " : "") + current.data;
             current = current.next;
         }
         return res;
@@ -74,8 +90,8 @@ class LinkedList {
 }
 
 class List {
-    constructor(content, next) {
-        this.content = content;
+    constructor(data, next) {
+        this.data = data;
         this.next = next ? next : null;
     }
 }
@@ -90,4 +106,4 @@ linkedList.insert("6", 3);
 linkedList.insert("20", 4);
 linkedList.insert("89", 6);
 console.log(linkedList, linkedList.toString(), 888);
-console.log(linkedList.get(3));
+console.log(linkedList.get(3),linkedList.indexOf(30));
