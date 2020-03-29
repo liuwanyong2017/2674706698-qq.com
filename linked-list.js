@@ -19,7 +19,7 @@ class LinkedList {
     }
 
     insert(content, index) {
-        if (index < 0 || index > this.length - 1) {
+        if (index < 0 || index > this.length ) {
             throw new Error("index参数不合理");
         }
         const list = new List(content);
@@ -74,6 +74,6 @@ linkedList.insert("2", 1);
 linkedList.insert("0", 0);
 linkedList.insert("6", 3);
 linkedList.insert("20", 4);
-linkedList.insert("89", 5);
+linkedList.insert("89", 6);
 
 console.log(linkedList, linkedList.toString(), 888);
