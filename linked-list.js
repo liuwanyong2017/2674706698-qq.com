@@ -75,6 +75,29 @@ class LinkedList {
         return index >= 0 ? index : -1;
     }
 
+    removeAt(position) {
+        if (position < 0 || position > this.length - 1 || this.length === 0) {
+            throw new Error("参数超出范围！");
+        }
+        let current = this.header;
+        if (position === 0) {
+            this.header = current.next;
+            this.length -= 1;
+        } else {
+            let i = 0;
+            while (i < position - 1) {
+                current = current.next;
+                i++;
+            }
+            const target = current.next;
+            if (target) {
+                current.next = target.next;
+                this.length -= 1;
+                return target;
+            }
+        }
+    }
+
     size() {
         return this.length;
     }
@@ -110,5 +133,6 @@ linkedList.insert("0", 0);
 linkedList.insert("6", 3);
 linkedList.insert("20", 4);
 linkedList.insert("89", 6);
-console.log(linkedList, linkedList.toString(), 888,linkedList.get(3),);
-console.log( linkedList.indexOf(3),linkedList.update(3,10),linkedList.get(3));
+console.log(linkedList, linkedList.toString(), 888, linkedList.get(3),);
+console.log(linkedList.indexOf(3), linkedList.update(3, 10), linkedList.get(3));
+console.log(linkedList.removeAt(3), linkedList.toString());
