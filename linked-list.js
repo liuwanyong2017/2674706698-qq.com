@@ -54,7 +54,7 @@ class LinkedList {
         return current;
     }
 
-    updata(position, data) {
+    update(position, data) {
         this.get(position).data = data;
         return true;
     }
@@ -111,4 +111,4 @@ linkedList.insert("6", 3);
 linkedList.insert("20", 4);
 linkedList.insert("89", 6);
 console.log(linkedList, linkedList.toString(), 888,linkedList.get(3),);
-console.log( linkedList.indexOf(3),linkedList.updata(3,10),linkedList.get(3));
+console.log( linkedList.indexOf(3),linkedList.update(3,10),linkedList.get(3));
