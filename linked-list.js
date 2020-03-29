@@ -29,16 +29,13 @@ class LinkedList {
             this.header = list;
         } else {
             let i = 0;
-            let last;
-            while (i < index) {
-                if (i === index - 1) {
-                    last = oldList;
-                }
+            while (i < index-1) {  //index-1是找的index-1的那个点，index点可以通过它找到
                 oldList = oldList.next;
                 i++;
             }
-            last.next = list;
-            list.next = oldList;
+            let next = oldList.next
+            oldList.next = list;
+            list.next = next;
         }
         this.length++;
     }
