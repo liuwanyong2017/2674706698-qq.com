@@ -240,6 +240,40 @@ class DoublyLinkedList extends LinkedList {
         return current;
     }
 
+    removeAt(index) {
+        if (index < 0 || this.length === 0 || index > this.length - 1) {
+            throw new Error("操作的下标超出范围！");
+        }
+        const current = this.get(index);
+        const last = current.prev;
+        const next = current.next;
+        if (last) {
+            if (next) {
+                last.next = next;
+                next.prev = last;
+            } else {
+                this.tail = last;
+                last.next = null;
+            }
+        } else {
+            if (next) {
+                this.header = next;
+                next.prev = null;
+            } else {
+                this.header = null;
+                this.tail = null;
+            }
+        }
+        this.length -= 1;
+        return current;
+    }
+
+    update(index, data) {
+        const list = this.get(index);
+        list.data = data;
+        return list;
+    }
+
     backwardString() {
         return this.toString();
     }
@@ -261,8 +295,11 @@ doublyLinkedList.append(2);
 doublyLinkedList.append(3);
 doublyLinkedList.append(4);
 doublyLinkedList.insert("哈哈", 2);
+doublyLinkedList.update(3, "test");
 console.log(doublyLinkedList,
     doublyLinkedList.backwardString(),
     doublyLinkedList.forwardString(),
-    doublyLinkedList.get(3)
+    doublyLinkedList.get(3),
+    doublyLinkedList.indexOf("哈哈")
 );
+console.log(doublyLinkedList.removeAt(3), doublyLinkedList.toString());
