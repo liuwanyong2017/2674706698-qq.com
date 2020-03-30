@@ -171,50 +171,73 @@ class DoublyLinkedList extends LinkedList {
         }
         this.length += 1;
     }
+
     insert(data, index) {
-        if (index<0||index > this.length){
-            throw new Error('插入的下标超出范围！')
+        if (index < 0 || index > this.length) {
+            throw new Error("插入的下标超出范围！");
         }
-        const list = new DoublyList(data)
-        if(index===0){
-            const current = this.header
-            if(current){
-                this.header = list
-                list.next = current
-                current.prev = list
-            }else{
-                this.tail = list
-                this.header = list
+        const list = new DoublyList(data);
+        if (index === 0) {
+            const current = this.header;
+            if (current) {
+                this.header = list;
+                list.next = current;
+                current.prev = list;
+            } else {
+                this.tail = list;
+                this.header = list;
             }
-        }else if (index === this.length ){
-            const last = this.tail
-            last.next = list
-            list.prev = last
-            this.tail = list
-        }else {
-            const test = index*2 > this.length -1
-            let i = test ? this.length -1 : 0
-            let current = test ? this.tail : this.header
-            let key = test ? 'prev':'next'
-            if(test){
-                while(i > index ){
-                    current = current[key]
-                    i--
+        } else if (index === this.length) {
+            const last = this.tail;
+            last.next = list;
+            list.prev = last;
+            this.tail = list;
+        } else {
+            const test = index * 2 > this.length - 1;
+            let i = test ? this.length - 1 : 0;
+            let current = test ? this.tail : this.header;
+            let key = test ? "prev" : "next";
+            if (test) {
+                while (i > index) {
+                    current = current[key];
+                    i--;
                 }
-            }else {
-                while(i<index){
-                    current = current[key]
-                    i++
+            } else {
+                while (i < index) {
+                    current = current[key];
+                    i++;
                 }
             }
-            const last = current.prev
-            list.prev = last
-            last.next = list
-            list.next = current
-            current.prev = list
+            const last = current.prev;
+            list.prev = last;
+            last.next = list;
+            list.next = current;
+            current.prev = list;
         }
 
-        this.length++
+        this.length++;
+    }
+
+    get(index) {
+        if (index < 0 || this.length === 0 || index > this.length - 1) {
+            throw new Error("超出链表的长度范围");
+        }
+        const test = index * 2 > this.length - 1;
+        let current = test ? this.tail : this.header;
+        let i = test ? this.length - 1 : 0;
+        const key = test ? "prev" : "next";
+        if (test) {
+            while (i > index) {
+                current = current[key];
+                i--;
+            }
+        } else {
+            while (i < index) {
+                current = current[key];
+                i++;
+            }
+        }
+        return current;
     }
 
     backwardString() {
@@ -225,7 +248,7 @@ class DoublyLinkedList extends LinkedList {
         let current = this.tail;
         let res = "";
         while (current) {
-            res +=  (res ? " <- " : "" )+ current.data;
+            res += (res ? " <- " : "") + current.data;
             current = current.prev;
         }
         return res;
@@ -237,8 +260,9 @@ const doublyLinkedList = new DoublyLinkedList(doublyList);
 doublyLinkedList.append(2);
 doublyLinkedList.append(3);
 doublyLinkedList.append(4);
-doublyLinkedList.insert('哈哈',2)
+doublyLinkedList.insert("哈哈", 2);
 console.log(doublyLinkedList,
     doublyLinkedList.backwardString(),
     doublyLinkedList.forwardString(),
+    doublyLinkedList.get(3)
 );
