@@ -81,8 +81,9 @@ class LinkedList {
         }
         let current = this.header;
         if (position === 0) {
-            this.header = current.next;
             this.length -= 1;
+            this.header = current.next;
+            return current;
         } else {
             let i = 0;
             while (i < position - 1) {
@@ -96,6 +97,11 @@ class LinkedList {
                 return target;
             }
         }
+    }
+
+    remove(data) {
+        const index = this.indexOf(data);
+        return this.removeAt(index);
     }
 
     size() {
@@ -136,3 +142,4 @@ linkedList.insert("89", 6);
 console.log(linkedList, linkedList.toString(), 888, linkedList.get(3),);
 console.log(linkedList.indexOf(3), linkedList.update(3, 10), linkedList.get(3));
 console.log(linkedList.removeAt(3), linkedList.toString());
+console.log(linkedList.remove("20"), linkedList.toString(),linkedList.size());
