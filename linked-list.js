@@ -142,4 +142,58 @@ linkedList.insert("89", 6);
 console.log(linkedList, linkedList.toString(), 888, linkedList.get(3),);
 console.log(linkedList.indexOf(3), linkedList.update(3, 10), linkedList.get(3));
 console.log(linkedList.removeAt(3), linkedList.toString());
-console.log(linkedList.remove("20"), linkedList.toString(),linkedList.size());
+console.log(linkedList.remove("20"), linkedList.toString(), linkedList.size());
+
+class DoublyList extends List {
+    constructor(data, next, prev) {
+        super(data, next);
+        this.prev = prev || null;
+    }
+}
+
+class DoublyLinkedList extends LinkedList {
+    constructor(list) {
+        super(list);
+        this.tail = list || null;
+    }
+
+    append(data) {
+        const list = new DoublyList(data);
+        if (this.length === 0) {
+            list.prev = null;
+            this.header = list;
+            this.tail = list;
+        } else {
+            const last = this.tail;
+            last.next = list;
+            list.prev = last;
+            this.tail = list;
+        }
+        this.length += 1;
+    }
+
+    backwardString() {
+        return this.toString();
+    }
+
+    forwardString() {
+        let current = this.tail;
+        let res = "";
+        while (current) {
+            res +=  (res ? " <- " : "" )+ current.data;
+            current = current.prev;
+        }
+        return res;
+    }
+}
+
+const doublyList = new DoublyList(1);
+const doublyLinkedList = new DoublyLinkedList(doublyList);
+doublyLinkedList.append(2);
+doublyLinkedList.append(3);
+doublyLinkedList.append(4);
+
+console.log(doublyLinkedList,
+    doublyLinkedList.backwardString(),
+    doublyLinkedList.forwardString()
+);
