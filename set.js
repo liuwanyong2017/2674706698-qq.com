@@ -32,6 +32,14 @@ class Set {
             key => this.items[key]
         );
     }
+//差集：
+    deference(set) {
+        const res = new Set();
+        this.values().map(
+            val => !set.has(val) && res.add(val)
+        );
+        return res;
+    }
 }
 
 const set = new Set({a: "a"});
@@ -50,7 +58,7 @@ console.log(
 
 
 class Union extends Set {
-    constructor(arr,initData) {
+    constructor(arr, initData) {
         super(initData);
         if (!Array.isArray(arr) || arr.find(
             item => !(item instanceof Set)
@@ -76,27 +84,36 @@ class Union extends Set {
 }
 
 const set1 = new Set({
-    a:'a',b:'b',c:'c',4:4,6:'6'
-})
+    a: "a", b: "b", c: "c", 4: 4, 6: "6"
+});
 const set2 = new Set({
-    b:'b',c:'c',4:'4',7:'7',l:'l'
-})
-const union = new Union([set1,set2],{7:7})
+    b: "b", c: "c", 4: "4", 7: "7", l: "l"
+});
+const union = new Union([set1, set2], {7: 7});
 console.log(union);
 
 
 // 交集
-class Intersection extends Set{
-    constructor(set1,set2) {
+class Intersection extends Set {
+    constructor(set1, set2) {
         super();
-        this.init(set1,set2)
+        if (!set instanceof Set || !set2 instanceof Set) {
+            throw new Error("构造函数需要接受两个Set类！");
+        }
+        this.init(set1, set2);
     }
-    init(set1,set2){
+
+    init(set1, set2) {
         set1.values().map(
-            val=>set2.has(val) && this.add(val)
-        )
+            val => set2.has(val) && this.add(val)
+        );
     }
 }
 
-const intersection = new Intersection(set1,set2)
+const intersection = new Intersection(set1, set2);
 console.log(intersection);
+
+
+
+const difference = set2.deference(set1)
+console.log(difference);
