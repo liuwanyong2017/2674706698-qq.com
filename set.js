@@ -85,3 +85,18 @@ const union = new Union([set1,set2],{7:7})
 console.log(union);
 
 
+// 交集
+class Intersection extends Set{
+    constructor(set1,set2) {
+        super();
+        this.init(set1,set2)
+    }
+    init(set1,set2){
+        set1.values().map(
+            val=>set2.has(val) && this.add(val)
+        )
+    }
+}
+
+const intersection = new Intersection(set1,set2)
+console.log(intersection);
