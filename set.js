@@ -11,11 +11,11 @@ class Set {
     }
 
     add(val) {
-        return this.has(val) ? false : this.items[val] = val;
+        return this.has(val)  === undefined ? false : this.items[val] = val;
     }
 
     remove(val) {
-        return this.has(val) ?
+        return this.has(val) === undefined ?
             delete this.items[val] : false;
     }
 
@@ -32,13 +32,28 @@ class Set {
             key => this.items[key]
         );
     }
+
 //差集：
     deference(set) {
+        if (!set instanceof Set) {
+            throw new Error("参数必须是Set类的实例");
+        }
         const res = new Set();
         this.values().map(
             val => !set.has(val) && res.add(val)
         );
         return res;
+    }
+
+    subSet(set) {
+        if (!set instanceof Set) {
+            throw new Error("参数必须是Set类的实例");
+        }
+        return !(
+            this.values().find(
+                val => !set.has(val)
+            )
+        );
     }
 }
 
@@ -75,7 +90,7 @@ class Union extends Set {
                     const isEmpty = this.size() === 0;
                     list.values().map(
                         val => isEmpty ? this.add(val) :
-                            !this.has(val) && this.add(val)
+                            !(this.has(val) === undefined) && this.add(val)
                     );
                 }
             }
@@ -114,6 +129,6 @@ const intersection = new Intersection(set1, set2);
 console.log(intersection);
 
 
+const difference = set2.deference(set1);
 
-const difference = set2.deference(set1)
-console.log(difference);
+console.log(difference,difference.subSet(set1));
