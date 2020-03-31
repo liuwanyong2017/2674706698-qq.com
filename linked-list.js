@@ -268,6 +268,59 @@ class DoublyLinkedList extends LinkedList {
         return current;
     }
 
+    remove(data) {
+        // const index = this.indexOf(data);
+        // return this.removeAt(index);
+        let current = this.header;
+        let ind, i = 0;
+        while (ind === undefined && current) {
+            if (current.data === data) {
+                ind = i;
+            }
+            current = current.next;
+            i++;
+        }
+        if (ind === undefined) {
+            throw new Error("暂无此节点，无法删除！");
+        }
+        const test = ind * 2 > this.length - 1;
+        let cur = test ? this.tail : this.header;
+        const key = test ? "prev" : "next";
+        let Ind = test ? this.length - 1 : 0;
+        if (test) {
+            while (Ind > ind) {
+                cur = cur[key];
+                Ind -= 1;
+            }
+        } else {
+            while (Ind < ind) {
+                cur = cur[key];
+                Ind += 1;
+            }
+        }
+        const last = cur.prev;
+        const next = cur.next;
+        if (last) {
+            if (next) {
+                last.next = next;
+                next.prev = last;
+            } else {
+                this.tail = last;
+                last.next = null;
+            }
+        } else {
+            if (next) {
+                this.header = next;
+                next.prev = null;
+            } else {
+                this.header = null;
+                this.tail = null;
+            }
+        }
+        this.length--;
+        return cur;
+    }
+
     update(index, data) {
         const list = this.get(index);
         list.data = data;
@@ -302,4 +355,8 @@ console.log(doublyLinkedList,
     doublyLinkedList.get(3),
     doublyLinkedList.indexOf("哈哈")
 );
-console.log(doublyLinkedList.removeAt(3), doublyLinkedList.toString());
+console.log(
+    doublyLinkedList.removeAt(3),
+    doublyLinkedList.remove(4),
+    doublyLinkedList.toString(),
+);
