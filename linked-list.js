@@ -361,6 +361,6 @@ console.log(
     doublyLinkedList.toString(),
 );
 
-modules.exports = {
+module.exports = {
     LinkedList,DoublyLinkedList,List,DoublyList
 }
