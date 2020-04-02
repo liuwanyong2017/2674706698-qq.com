@@ -88,12 +88,26 @@ class HashTable {
     get(key) {
         const index = new Hash(key, this.limit).hashCode;
         const current = this.table[index];
-        if (!current) return null;
+        if (current === undefined || current === null) return null;
         if (current.key) return current;
-        console.log('1');
         const ind = current.indexOf(key, "key");
         if (ind < 0) return null;
         return current.get(ind).data;
+    }
+
+    remove(key) {
+        const index = new Hash(key, this.limit).hashCode;
+        const current = this.table[index];
+        if (current === undefined || current === null) return null;
+        if (current.key) {
+            this.table[index] = null;
+            return current;
+        }
+        ;
+        const ind = current.indexOf(key, "key");
+        if (ind < 0) return null;
+        this.count -= 1;
+        return current.removeAt(ind);
     }
 }
 
@@ -120,7 +134,7 @@ hash_table.put(
     }
 );
 console.log(hash_table.table, hash_table.count);
-
+hash_table.remove('abc')
 setTimeout(
     () => {
         hash_table.put(
