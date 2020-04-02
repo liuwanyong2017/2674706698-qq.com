@@ -1,6 +1,6 @@
 //哈希
 
-const {DoublyLinkedList,DoublyList}= require('./linked-list')
+const {DoublyLinkedList, DoublyList} = require("./linked-list");
 
 
 class Hash {
@@ -67,14 +67,13 @@ class HashTable {
             } else if (current.key) {
                 const doublyLinkedList = new DoublyLinkedList(
                     new DoublyList(current));
-                const doublyList = new DoublyList(obj);
-                doublyLinkedList.append(doublyList);
+                doublyLinkedList.append(obj);
                 this.table[i] = doublyLinkedList;
                 this.count += 1;
             } else {
-                const index = current.indexOf(obj);
+                const index = current.indexOf(obj.key, "key");
                 if (index < 0) {
-                    current.append(new DoublyList(obj));
+                    current.append(obj);
                     this.count += 1;
                 } else {
                     current.update(index, obj);
@@ -85,29 +84,55 @@ class HashTable {
             this.count += 1;
         }
     }
+
+    get(key) {
+        const index = new Hash(key, this.limit).hashCode;
+        const current = this.table[index];
+        if (!current) return null;
+        if (current.key) return current;
+        console.log('1');
+        const ind = current.indexOf(key, "key");
+        if (ind < 0) return null;
+        return current.get(ind).data;
+    }
 }
 
-const hash_table = new HashTable(7)
+const hash_table = new HashTable(7);
 
 hash_table.put(
     {
-        key:'abc',name:'liuliu',age:24
+        key: "abc", name: "liuliu", age: 24
     }
-)
+);
 hash_table.put(
     {
-        key:'abc',name:'liuliu',age:22
+        key: "abc", name: "liuliu", age: 22
     }
-)
-console.log(hash_table.table,hash_table.count);
+);
+hash_table.put(
+    {
+        key: "bcde", name: "liuliu", age: 23
+    }
+);
+hash_table.put(
+    {
+        key: "de", name: "liu", age: 23
+    }
+);
+console.log(hash_table.table, hash_table.count);
 
 setTimeout(
-    ()=>{
+    () => {
         hash_table.put(
             {
-                key:'bcde',name:'liuliu',age:23
+                key: "bcde", name: "liu", age: 21
             }
-        )
-        console.log('tt',hash_table.table,hash_table.count);
+        );
+        console.log(
+            "tt", hash_table.table,
+            hash_table.count,
+            hash_table.get("bcde"),
+            hash_table.get("abc"),
+        );
     }
-)
+);
