@@ -54,6 +54,14 @@ class HashTable {
         const i = new Hash(obj.key, this.limit).hashCode;
         const current = this.table[i];
         if (current) {
+            //这里很纠结的，首先，我解耦了要存的数据是个对象这种复杂类型，并且我没用数组
+            //链表存储时候，链表的查询方法indexOf那里，对比的是DoubleList里的data
+            //所以这里的对比就很真实对比了，要么对比简单数据的值，要么对比复杂对象的内存地址
+            //如果数据本身拷贝过，那就完了！而且data的值就是obj这个参数的值！
+            //这里就会限定死了如何匹配查找时，要传入的匹配参照就必须是原本的obj，而不是key
+            //当然，我确实需要扩展一下 DoubleLinkedList的indexOf方法，更健壮。
+            //当初封装的时候，我一直都有这方面的疑惑的，为啥不是凭借关键字段来匹配？
+            //后来觉得，没必要的，尽可能地简单字段。同时就算是复杂的数据的内存地址，那就全等于喽！
             if (current.key === obj.key) {
                 this.table[i] = obj;
             } else if (current.key) {
