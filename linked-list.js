@@ -360,3 +360,7 @@ console.log(
     doublyLinkedList.remove(4),
     doublyLinkedList.toString(),
 );
+
+modules.exports = {
+    LinkedList,DoublyLinkedList,List,DoublyList
+}
