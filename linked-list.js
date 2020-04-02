@@ -132,19 +132,19 @@ class List {
     }
 }
 
-const list = new List(1);
-const linkedList = new LinkedList(list);
-console.log(linkedList);
-linkedList.append(30);
-linkedList.insert("2", 1);
-linkedList.insert("0", 0);
-linkedList.insert("6", 3);
-linkedList.insert("20", 4);
-linkedList.insert("89", 6);
-console.log(linkedList, linkedList.toString(), 888, linkedList.get(3),);
-console.log(linkedList.indexOf(3), linkedList.update(3, 10), linkedList.get(3));
-console.log(linkedList.removeAt(3), linkedList.toString());
-console.log(linkedList.remove("20"), linkedList.toString(), linkedList.size());
+// const list = new List(1);
+// const linkedList = new LinkedList(list);
+// console.log(linkedList);
+// linkedList.append(30);
+// linkedList.insert("2", 1);
+// linkedList.insert("0", 0);
+// linkedList.insert("6", 3);
+// linkedList.insert("20", 4);
+// linkedList.insert("89", 6);
+// console.log(linkedList, linkedList.toString(), 888, linkedList.get(3),);
+// console.log(linkedList.indexOf(3), linkedList.update(3, 10), linkedList.get(3));
+// console.log(linkedList.removeAt(3), linkedList.toString());
+// console.log(linkedList.remove("20"), linkedList.toString(), linkedList.size());
 
 class DoublyList extends List {
     constructor(data, next, prev) {
@@ -344,24 +344,24 @@ class DoublyLinkedList extends LinkedList {
     }
 }
 
-const doublyList = new DoublyList(1);
-const doublyLinkedList = new DoublyLinkedList(doublyList);
-doublyLinkedList.append(2);
-doublyLinkedList.append(3);
-doublyLinkedList.append(4);
-doublyLinkedList.insert("哈哈", 2);
-doublyLinkedList.update(3, "test");
-console.log(doublyLinkedList,
-    doublyLinkedList.backwardString(),
-    doublyLinkedList.forwardString(),
-    doublyLinkedList.get(3),
-    doublyLinkedList.indexOf("哈哈")
-);
-console.log(
-    doublyLinkedList.removeAt(3),
-    doublyLinkedList.remove(4),
-    doublyLinkedList.toString(),
-);
+// const doublyList = new DoublyList(1);
+// const doublyLinkedList = new DoublyLinkedList(doublyList);
+// doublyLinkedList.append(2);
+// doublyLinkedList.append(3);
+// doublyLinkedList.append(4);
+// doublyLinkedList.insert("哈哈", 2);
+// doublyLinkedList.update(3, "test");
+// console.log(doublyLinkedList,
+//     doublyLinkedList.backwardString(),
+//     doublyLinkedList.forwardString(),
+//     doublyLinkedList.get(3),
+//     doublyLinkedList.indexOf("哈哈")
+// );
+// console.log(
+//     doublyLinkedList.removeAt(3),
+//     doublyLinkedList.remove(4),
+//     doublyLinkedList.toString(),
+// );
 
 module.exports = {
     LinkedList, DoublyLinkedList, List, DoublyList
