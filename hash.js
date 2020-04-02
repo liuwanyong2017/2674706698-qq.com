@@ -133,7 +133,7 @@ class HashTable {
     }
 
     resize(size) {
-        this.limit = size;
+        this.limit = this.getPrime(size);
         const storage = this.table;
         this.table = [];
         this.count = 0;
@@ -153,6 +153,21 @@ class HashTable {
                 }
             }
         );
+    }
+
+    isPrime(num) {
+        let res = true, i = 2;
+        while (res && i <= Math.sqrt(num)) {
+            num % i === 0 && (res = false);
+        }
+        return res;
+    }
+
+    getPrime(num) {
+        while (!this.isPrime(num)) {
+            num += 1;
+        }
+        return num;
     }
 
     isEmpty() {
