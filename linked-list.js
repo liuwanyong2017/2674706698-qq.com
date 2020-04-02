@@ -64,7 +64,7 @@ class LinkedList {
         if (!current) return -1;
         let index;
         let i = 0;
-        while (!index && current) {
+        while (index === undefined && current) {
             if (
                 (key ? current.data[key] : current.data) === data
             ) {
