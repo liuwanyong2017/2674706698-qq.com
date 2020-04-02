@@ -109,6 +109,14 @@ class HashTable {
         this.count -= 1;
         return current.removeAt(ind);
     }
+
+    isEmpty() {
+        return this.count === 0;
+    }
+
+    get size() {
+        return this.count;
+    }
 }
 
 const hash_table = new HashTable(7);
@@ -134,7 +142,7 @@ hash_table.put(
     }
 );
 console.log(hash_table.table, hash_table.count);
-hash_table.remove('abc')
+hash_table.remove("abc");
 setTimeout(
     () => {
         hash_table.put(
@@ -147,6 +155,7 @@ setTimeout(
             hash_table.count,
             hash_table.get("bcde"),
             hash_table.get("abc"),
+            hash_table.size
         );
     }
 );
