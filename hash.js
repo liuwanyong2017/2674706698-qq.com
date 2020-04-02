@@ -70,11 +70,13 @@ class HashTable {
                 doublyLinkedList.append(obj);
                 this.table[i] = doublyLinkedList;
                 this.count += 1;
+                this.largerResize();  //扩容
             } else {
                 const index = current.indexOf(obj.key, "key");
                 if (index < 0) {
                     current.append(obj);
                     this.count += 1;
+                    this.largerResize(); //扩容
                 } else {
                     current.update(index, obj);
                 }
@@ -82,6 +84,7 @@ class HashTable {
         } else {
             this.table[i] = obj;
             this.count += 1;
+            this.largerResize();  //扩容
         }
     }
 
@@ -101,13 +104,55 @@ class HashTable {
         if (current === undefined || current === null) return null;
         if (current.key) {
             this.table[index] = null;
+            this.smallerResize();  //缩容
             return current;
         }
-        ;
         const ind = current.indexOf(key, "key");
         if (ind < 0) return null;
         this.count -= 1;
-        return current.removeAt(ind);
+        const val = current.removeAt(ind);
+        if (current.length === 0) {
+            this.table[index] = null;
+        }
+        this.smallerResize();  //缩容
+        return val;
+    }
+
+    largerResize() {
+        const test = this.count / this.limit;
+        if (test > 0.75) {
+            this.resize(this.limit * 2);
+        }
+    }
+
+    smallerResize() {
+        const test = this.count / this.limit;
+        if (test < 0.2 && this.limit > 20) {
+            this.resize(Math.floor(this.limit / 2));
+        }
+    }
+
+    resize(size) {
+        this.limit = size;
+        const storage = this.table;
+        this.table = [];
+        this.count = 0;
+        storage.map(
+            val => {
+                if (val) {
+                    if (val.key) {
+                        this.put(val);
+                        this.count++;
+                    } else if (!val.key) {
+                        let current = val.header;
+                        while (current) {
+                            this.put(current.data);
+                            this.count++;
+                        }
+                    }
+                }
+            }
+        );
     }
 
     isEmpty() {
