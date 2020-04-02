@@ -59,13 +59,15 @@ class LinkedList {
         return true;
     }
 
-    indexOf(data) {
+    indexOf(data, key) {
         let current = this.header;
         if (!current) return -1;
         let index;
         let i = 0;
         while (!index && current) {
-            if (current.data === data) {
+            if (
+                (key ? current.data[key] : current.data) === data
+            ) {
                 index = i;
             } else {
                 current = current.next;
@@ -362,5 +364,5 @@ console.log(
 );
 
 module.exports = {
-    LinkedList,DoublyLinkedList,List,DoublyList
-}
+    LinkedList, DoublyLinkedList, List, DoublyList
+};
