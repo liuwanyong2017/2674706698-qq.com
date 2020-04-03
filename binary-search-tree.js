@@ -65,6 +65,36 @@ class BinarySearchTree {
             this._midOrderTraversalNode(node.right, callback);
         }
     }
+
+    postOrderTraversalNode(callback) {
+        this._postOrderTraversalNode(this.root, callback);
+    }
+
+    _postOrderTraversalNode(node, callback) {
+        if (node) {
+            this._postOrderTraversalNode(node.left, callback);
+            this._postOrderTraversalNode(node.right, callback);
+            callback(node.key, node.data);
+        }
+    }
+
+    get max() {
+        let current = this.root;
+        if (current === null) return null;
+        while (current.right) {
+            current = current.right;
+        }
+        return current.key;
+    }
+
+    get min() {
+        let current = this.root;
+        if (current === null) return null;
+        while (current.left) {
+            current = current.left;
+        }
+        return current.key;
+    }
 }
 
 
@@ -77,7 +107,7 @@ arr.map(
     (num, ind) => binarySearchTree.insert(num, {id: ind})
 );
 console.log(binarySearchTree);
-let arr1 = [], arr2 = [];
+let arr1 = [], arr2 = [], arr3 = [];
 binarySearchTree.preOrderTraversalNode(
     (key, data) => {
         arr1.push({key, data});
@@ -88,4 +118,12 @@ binarySearchTree.midOrderTraversalNode(
         arr2.push({key, data});
     }
 );
-console.log(arr, arr1, arr2);
+binarySearchTree.postOrderTraversalNode(
+    (key, data) => {
+        arr3.push({key, data});
+    }
+);
+console.log(
+    arr, arr1, arr2, arr3,
+    binarySearchTree.min,binarySearchTree.max,
+);
