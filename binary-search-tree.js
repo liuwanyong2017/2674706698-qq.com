@@ -95,6 +95,29 @@ class BinarySearchTree {
         }
         return current.key;
     }
+
+    search(key) {
+        return this._search(this.root, key);
+        //不用递归：
+        // let current = this.root;
+        // if (current === null) return null;
+        // let res = null;
+        // while (current) {
+        //     if (current.key === key) return res = current;
+        //     current = current[current.key > key ? "left" : "right"];
+        // }
+        // return res;
+    }
+
+    _search(node, key) {
+        if (node !== null) {
+            if (node.key === key) return node;
+            return node.key > key ?
+                this._search(node.left, key) :
+                this._search(node.right, key);
+        }
+        return null;
+    }
 }
 
 
@@ -125,5 +148,6 @@ binarySearchTree.postOrderTraversalNode(
 );
 console.log(
     arr, arr1, arr2, arr3,
-    binarySearchTree.min,binarySearchTree.max,
+    binarySearchTree.min, binarySearchTree.max,
+    binarySearchTree.search(arr[6])
 );
