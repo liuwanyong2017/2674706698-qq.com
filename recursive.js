@@ -173,17 +173,137 @@ const eat = num => {
 //递归：
 {
     const res = [];
-    const x = ( n, s,left,right) => {
+    const x = (n, s, left, right) => {
         if (left === n && right === n) return res.push(s);
-        if (right<left){
-            x(n,s+')',left,right+1)
+        if (right < left) {
+            x(n, s + ")", left, right + 1);
         }
-        if (left < n &&left>= right){
-            x(n,s+'(',left+1,right)
+        if (left < n && left >= right) {
+            x(n, s + "(", left + 1, right);
         }
-
     };
-    x(3,'',0,0)
+    x(3, "", 0, 0);
     console.log(res);
 }
 
+//https://leetcode-cn.com/problems/recursive-mulitply-lcci/
+
+{
+    const x = (a, b,) => {
+        const min = a > b ? b : a;
+        const max = a > b ? a : b;
+        let i = 1, res = max, max100, test, add;
+        if (min === 0) return 0;
+        if (i === min) return res;
+        if (min > 1000) {
+            if (min < 10000) {
+                test = i => i > 100 && i + 100 <= min;
+                max100 = +(max + "00");
+                add = 100;
+            } else {
+                test = i => i > 1000 && i + 1000 <= min;
+                max100 = +(max + "000");
+                add = 1000;
+            }
+        }
+        const y = (i, res) => {
+            if (i === min) return res;
+            if (i + i <= min) {
+                res += res;
+                i += i;
+            } else if (min > 1000 && test(i)) {
+                res += max100;
+                i += add;
+            } else {
+                res += max;
+                i += 1;
+            }
+            return y(i, res);
+        };
+
+        //这里有过测试，每增加一次判断，消耗增加，我为了适应后期大数量级，觉得应该填一个。
+
+        return y(1, max);
+    };
+    console.log(x(10343, 76));
+}
+
+//https://leetcode-cn.com/problems/add-digits/
+
+{
+    const x = (n) => {
+        if (n.length === 1) return +n;
+        let res = 0;
+        for (let i = 0; i < n.length; i++) {
+            res += +n[i];
+        }
+        return x(res + "");
+    };
+    console.log(x("345"));
+}
+{
+    const x = n => {
+        if (n < 10) return n;
+        let res = 0, i = 10, count = 0, test = n * 10;
+        while (test >= i) {
+            const num = n % i;
+            res += (num - count) / i * 10;
+            count = num;
+            i *= 10;
+        }
+        return x(res);
+    };
+    console.log(x(345));
+}
+{
+    const x = n => {
+        if (n < 10) return n;
+        const str = "" + n;
+        let level = "1";
+        for (let i = 0; i < str.length - 1; i++) {
+            level += "0";
+        }
+        level = +level;
+        let res = 0, count = 0;
+
+        while (level >= 1) {
+            const num = n - count;
+            const initLevel = level;
+            for (let i = 1; i < 10; i++) {
+                if (level > num) {
+                    res += i - 1;
+                    count += level - initLevel;
+                    level = initLevel / 10;
+                    break;
+                }
+                level += initLevel;
+            }
+        }
+        return x(res);
+    };
+    console.log(x(38));
+    ;
+}
+{
+    const x = n => {
+        if (n < 10) return n;
+        let res = 0, level = 10;
+        while (n >= 1) {
+            for (let i = 0; i < 10; i++) {
+                if ((n - i) % level === 0) {
+                    res += i;
+                    n = (n - i) / 10;
+                    break;
+                }
+            }
+        }
+        return x(res);
+    };
+    console.log(x(345),9);
+}
+
+{  // x*100 + y*10+z = X*99 + y*9+ z+x+y
+    const x = n=>{
+        return (n-1) % 9 + 1
+    }
+}
