@@ -131,11 +131,11 @@ const sort = arr => {
                         for (let i = indexs.length - 1; i >= 0; i--) {
                             arr.splice(indexs[i], 1);
                         }
-                    } else if (all < val ) {
+                    } else if (all < val) {
                         arr = [];
                         return res = false;
                     } else {
-                        val -= mins[mins.length-1]
+                        val -= mins[mins.length - 1];
 
                     }
                 }
@@ -181,9 +181,123 @@ const sort = arr => {
 
 
     };
-    console.log(x(
-        [2, 2, 10, 5, 2, 7, 2, 2, 13],
-        3
-        )
-    );
+    // console.log(x(
+    //     [2, 2, 10, 5, 2, 7, 2, 2, 13],
+    //     3
+    //     )
+    // );
+}
+
+
+//https://leetcode-cn.com/problems/add-two-numbers/
+
+{
+    class ListNode {
+        constructor(val) {
+            this.val = val || null;
+            this.next = null;
+        }
+    }
+
+    const res = new ListNode();
+    let add = 0;
+    const x = (l1, l2, node) => {
+        if (!l1 && !l2) {
+            return node.val = add;
+        }
+        let val1 = l1 ? l1.val : null, val2 = l2 ? l2.val : null, sum;
+        val1 = val1 || 0;
+        val2 = val2 || 0;
+        sum = val1 + val2 + add;
+        if (sum >= 10) {
+            node.val = sum % 10;
+            add = 1;
+        } else {
+            node.val = sum;
+            add = 0;
+        }
+
+
+        let next1 = l1 ? l1.next : null, next2 = l2 ? l2.next : null;
+        if (next1 !== null || next2 !== null || add > 0) {
+            node.next = new ListNode();
+            x(next1, next2, node.next);
+        }
+    };
+    // x({val: 5}, {val: 5}, res);
+    // console.log(res);
+}
+//https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/submissions/
+{
+    const x = n => {
+        if (n <= 1) return n;
+        if (n === 2) return 1;
+        if (n === 3) return 2;
+        let i = 4, val1 = 1, val2 = 2, current = 1;
+        while (i < n) {
+            if (current === 1) {
+                val1 = (val1 + val2) % 1000000007;
+                current = 2;
+            } else {
+                val2 = (val1 + val2) % 1000000007;
+                current = 1;
+            }
+            i++;
+        }
+        let sum = (val1 + val2) % 1000000007;
+        return sum;
+    };
+    console.log(x(81) / 1000000007);
+}
+
+{//https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/submissions/
+    const w = (x, n) => {
+        if (x === 0) return 0;
+        if (x === 1) return 1;
+        if (n === 1) return x;
+        if (n === 0) return 1;
+        if (x === -1) {
+            return n % 2 === 0 ? 1 : -1;
+        }
+        let test = n > 1, i = 1;
+        x = test ? x : 1 / x;
+        let res = x;
+        n = n > 0 ? n : -n;
+        n -= 1;
+        const arr = [];
+        while (n > 0) {
+            if (i + i < n) {
+                res *= res;
+                n -= i;
+                i += i;
+            } else {
+                i = 1;
+                arr.push(res);
+                if (n === 1) {
+                    arr.push(x);
+                    n = 0;
+                } else {
+                    res = x;
+                    n -= 1;
+                }
+            }
+        }
+        // console.log(arr);
+        return arr.reduce((a, b) => a * b, 1);
+    };
+    console.log(w(2, 10));
+
+    //最牛皮的答案：
+    const z = (x, n) => {
+        if (n === 0) return 1;
+        let mid = n/2
+        const test = mid % 1
+        mid = test ? mid - test : mid
+        const num = z(x, mid);
+        return test ? num * num * x : num * num;
+    };
+    const m = (x, n) => {
+        return n < 0 ? 1 / z(x, -n) : z(x, n);
+    };
+    console.log(m(2, 10));
 }
