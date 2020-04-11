@@ -301,3 +301,16 @@ const sort = arr => {
     };
     console.log(m(2, 10));
 }
+//https://leetcode-cn.com/problems/super-egg-drop/submissions/ 二分法
+{
+    let count = 0
+    const x = (k,n)=>{
+        if(n===2) return count+=1;
+        if(n===0) return;
+        let mid = Math.round(n/2)
+        count++
+        x(k,n-mid)
+    }
+    x(1,1+1)
+    console.log(count);
+}
