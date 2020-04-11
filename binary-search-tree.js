@@ -287,3 +287,4 @@ console.log(
     arr, arr1,
     binarySearchTree.search(arr[5]), binarySearchTree.search(arr[7]),
 );
+
