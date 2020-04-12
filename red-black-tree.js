@@ -55,6 +55,9 @@ class RedBlackTree {
                     if (key === "left") {  //情况4
                         grandP.color = 1;
                         parent.color = 2;
+                        parent.right = grandP;
+                        grandP.left = sibling;
+                        grandP.parent = parent;
                         const grandPP = grandP.parent;
                         if (grandPP) {
                             const key2 = grandPP.val > grandP.val ?
@@ -64,10 +67,6 @@ class RedBlackTree {
                         } else {
                             parent.parent = null;
                         }
-                        parent.right = grandP;
-                        grandP.left = sibling;
-                        grandP.parent = parent;
-                        this.update(parent);
                     }else{  //情况5
                         grandP[key1] = node
                         node.parent = grandP
