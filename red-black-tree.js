@@ -53,12 +53,14 @@ class RedBlackTree {
                     this.update(grandP);
                 } else {
                     if (key === "left") {  //情况4
+                        const grandPP = grandP.parent;
                         grandP.color = 1;
                         parent.color = 2;
                         parent.right = grandP;
                         grandP.left = sibling;
                         grandP.parent = parent;
-                        const grandPP = grandP.parent;
+                        // console.log(grandPP,'ppppp');
+
                         if (grandPP) {
                             const key2 = grandPP.val > grandP.val ?
                                 "left" : "right";
@@ -66,6 +68,8 @@ class RedBlackTree {
                             parent.parent = grandPP;
                         } else {
                             parent.parent = null;
+                            this.root = parent
+                            // console.log(parent,'ppp',node);
                         }
                     }else{  //情况5
                         grandP[key1] = node
@@ -92,7 +96,6 @@ class RedBlackTree {
             const key = val > parent.val ? "right" : "left";
             if (!parent.parent) {  //1
                 node.parent = parent;
-                node.color = 2;
                 parent[key] = node;
             } else {
                 if (color === 2) {  //2
@@ -109,5 +112,10 @@ class RedBlackTree {
             this.root = node;
         }
     }
+}
 
+const rbt=new RedBlackTree()
+for (let i=10;i>=0;i--){
+    rbt.insert(i)
+    console.log(i,rbt.root);
 }
