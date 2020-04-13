@@ -41,6 +41,14 @@ class Graph {
         // console.log(edges2,edges1);
         return true;
     }
+
+    toString(){
+        return this.vertexes.reduce(
+            (a,b)=>
+                a+ (a ? '\n': '')+`${b} -> ${this.edges.get(b).join(' ')}`
+            ,''
+        )
+    }
 }
 
 const graph = new Graph(["a", "b", "c", "d", "e", "f", "g", "h", "i"]);
@@ -56,4 +64,4 @@ graph.addEdge("b", "e");
 graph.addEdge("b", "f");
 graph.addEdge("e", "i");
 
-console.log(graph);
+console.log(graph.toString());
