@@ -1,9 +1,9 @@
 //字典
 
 
-class Dictionay {
+class Dictionary {
     constructor(items) {
-        this.items = items;
+        this.items = items || {};
     }
 
     has(key) {
@@ -39,3 +39,6 @@ class Dictionay {
         return this.items = {};
     }
 }
+
+
+module.exports = {Dictionary}
