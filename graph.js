@@ -12,7 +12,7 @@ class Graph {
         let obj = {},obj1={};
         if (vertexes.length) {
             vertexes.map(
-                key => obj[key] = [] &&( obj1[key] = 1)
+                key => (obj[key] = []) &&( obj1[key] = 1)
             );
         }
         this.edges = new Dictionary(obj);
@@ -43,7 +43,37 @@ class Graph {
         // console.log(edges2,edges1);
         return true;
     }
+    bfs(start,callback){
+        callback && callback(start)
+        this.vertexState[start] = 2
+        this._bfs(start,callback)
+        Object.keys(this.vertexState).map(
+            k=>this.vertexState[k]=1
+        )
+    }
 
+    _bfs(start,callback){
+        //1代表未被访问，2代表访问所有的关联未完成，3代表所有的关联都访问完了
+        //callback && callback(start)
+        //this.vertexState[start] = 2
+        // console.log(this.edges);
+
+        const edges = this.edges.get(start)
+        edges.map(
+            (key,ind)=>{
+                if (this.vertexState[key] === 1){
+                    callback && callback(key)
+                    this.vertexState[key] = 2
+                }
+            }
+        )
+        this.vertexState[start] = 3
+        Object.keys(this.vertexState).filter(
+            key=>this.vertexState[key] === 2
+        ).map(
+            k=>this._bfs(k,callback)
+        )
+    }
 
     toString(){
         return this.vertexes.reduce(
@@ -66,5 +96,5 @@ graph.addEdge("d", "h");
 graph.addEdge("b", "e");
 graph.addEdge("b", "f");
 graph.addEdge("e", "i");
-
-console.log(graph.toString());
+graph.bfs('a',v=>console.log(v))
+// console.log(graph);
