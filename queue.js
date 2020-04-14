@@ -52,56 +52,56 @@ class Queue {
 
 //击鼓传花题目：
 
-const q = new Queue(["a", "b", "c", "d", "e"]);
+// const q = new Queue(["a", "b", "c", "d", "e"]);
+//
+// let timer = 0;
+// //第一次淘汰：
+// while (timer < 5) {
+//     const dequeue = q.dequeue();
+//     timer !== 4 && q.enqueue(dequeue);
+//     timer === 4 && console.log(dequeue, q);
+//     timer++;
+// }
+//
+// timer = 0;
+// //第2次淘汰：
+// while (timer < 5) {
+//     const dequeue = q.dequeue();
+//     timer !== 4 && q.enqueue(dequeue);
+//     timer === 4 && console.log(dequeue, q);
+//     timer++;
+// }
+//
+// timer = 0;
+// //第3次淘汰：
+// while (timer < 5) {
+//     const dequeue = q.dequeue();
+//     timer !== 4 && q.enqueue(dequeue);
+//     timer === 4 && console.log(dequeue, q);
+//     timer++;
+// }
+//
+// timer = 0;
+// //第4次淘汰：
+// while (timer < 5) {
+//     const dequeue = q.dequeue();
+//     timer !== 4 && q.enqueue(dequeue);
+//     timer === 4 && console.log(dequeue, q);
+//     timer++;
+// }
+//
+// function drummingFlowers(arr, loopNum) {
+//     const q = new Queue(arr);
+//     let timer = 1;
+//     while (q.size() > 1) {
+//         const dequeue = q.dequeue();
+//         timer % loopNum !== 0 && q.enqueue(dequeue);
+//         timer++;
+//     }
+//     return q.front();
+// }
 
-let timer = 0;
-//第一次淘汰：
-while (timer < 5) {
-    const dequeue = q.dequeue();
-    timer !== 4 && q.enqueue(dequeue);
-    timer === 4 && console.log(dequeue, q);
-    timer++;
-}
-
-timer = 0;
-//第2次淘汰：
-while (timer < 5) {
-    const dequeue = q.dequeue();
-    timer !== 4 && q.enqueue(dequeue);
-    timer === 4 && console.log(dequeue, q);
-    timer++;
-}
-
-timer = 0;
-//第3次淘汰：
-while (timer < 5) {
-    const dequeue = q.dequeue();
-    timer !== 4 && q.enqueue(dequeue);
-    timer === 4 && console.log(dequeue, q);
-    timer++;
-}
-
-timer = 0;
-//第4次淘汰：
-while (timer < 5) {
-    const dequeue = q.dequeue();
-    timer !== 4 && q.enqueue(dequeue);
-    timer === 4 && console.log(dequeue, q);
-    timer++;
-}
-
-function drummingFlowers(arr, loopNum) {
-    const q = new Queue(arr);
-    let timer = 1;
-    while (q.size() > 1) {
-        const dequeue = q.dequeue();
-        timer % loopNum !== 0 && q.enqueue(dequeue);
-        timer++;
-    }
-    return q.front();
-}
-
-console.log(drummingFlowers(["a", "b", "c", "d", "e"], 6));
+// console.log(drummingFlowers(["a", "b", "c", "d", "e"], 6));
 
 //优先级队列的实现：
 //默认的传入数据为{data:xxx,priority:1}
@@ -168,28 +168,28 @@ class PriorityQueue extends Queue {
 }
 
 
-const pq = new PriorityQueue(
-    [
-        {data: 1, priority: 300},
-        {data: 1, priority: 200},
-        {data: 1, priority: 100},
-        {data: 1, priority: 50},
-        {data: 1, priority: 25},
-        {data: 1, priority: 12},
-        {data: 1, priority: 6}
-    ]
-);
-
-pq.enqueue({data: 2, priority: 40});
-
-pq.enqueue(
-    {data: 2, priority: 30},
-    {data: 2, priority: 400},
-    {data: 2, priority: 7},
-    {data: 2, priority: 150}
-);
-
-console.log(pq, 0);
+// const pq = new PriorityQueue(
+//     [
+//         {data: 1, priority: 300},
+//         {data: 1, priority: 200},
+//         {data: 1, priority: 100},
+//         {data: 1, priority: 50},
+//         {data: 1, priority: 25},
+//         {data: 1, priority: 12},
+//         {data: 1, priority: 6}
+//     ]
+// );
+//
+// pq.enqueue({data: 2, priority: 40});
+//
+// pq.enqueue(
+//     {data: 2, priority: 30},
+//     {data: 2, priority: 400},
+//     {data: 2, priority: 7},
+//     {data: 2, priority: 150}
+// );
+//
+// console.log(pq, 0);
 
 
 //链表实现的：
@@ -235,12 +235,12 @@ class Queue1 {
     }
 }
 
-const queue = new Queue1();
-queue.enqueue(3, 5, 2, 34);
-console.log(queue.toString(), queue.front(),);
-queue.enqueue(6);
-queue.enqueue(7, 8, 9);
-
-console.log(queue.dequeue(), queue, 999);
+// const queue = new Queue1();
+// queue.enqueue(3, 5, 2, 34);
+// console.log(queue.toString(), queue.front(),);
+// queue.enqueue(6);
+// queue.enqueue(7, 8, 9);
+//
+// console.log(queue.dequeue(), queue, 999);
 
 module.exports = {Queue1}
