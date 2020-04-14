@@ -1,4 +1,8 @@
 //数组实现：
+
+
+const {DoublyLinkedList, DoublyList} = require("./linked-list");
+
 class Queue {
     constructor(arr = []) {
         this.lists = arr;
@@ -139,7 +143,7 @@ class PriorityQueue extends Queue {
                         console.log("indss:", priority, index, "dd", min, max);
                         if (priority > list.priority) {
                             min = min && min > index + 1 ? min : index + 1;
-                            length = min + (max||this.lists.length);
+                            length = min + (max || this.lists.length);
                             index = getIndex(length);
                             // console.log('in', index,'pri:', priority);
                         } else {
@@ -151,7 +155,7 @@ class PriorityQueue extends Queue {
                                 index = null;
                             } else {
                                 max = max && max < index ? max : index;
-                                length = max ;
+                                length = max;
                                 index = getIndex(length);
                             }
                             // console.log('in2', index,'pri:', priority);
@@ -186,3 +190,57 @@ pq.enqueue(
 );
 
 console.log(pq, 0);
+
+
+//链表实现的：
+class Queue1 {
+    constructor(doublyLinkedList) {
+        this.lists = doublyLinkedList || new DoublyLinkedList();
+    }
+
+    //尾部新增
+    enqueue(...lists) {
+        lists.map(list => this.lists.append(list));
+    }
+
+    //首部移除
+    //这里是数组，其实这里的移除操作，会很消耗性能的。最佳方式是用链表。
+    dequeue() {
+        return this.lists.removeAt(0);
+    }
+
+    //返回队列中的第一个元素
+    front() {
+        return this.lists.header;
+    }
+
+    //空：
+    isEmpty() {
+        return this.lists.length === 0;
+    }
+
+    //个数：
+    size() {
+        return this.lists.length;
+    }
+
+    //转成字符串：
+    toString() {
+        let res = "", item = this.lists.header;
+        while (item) {
+            res += (res ? " -> " : "") + item.data;
+            item = item.next;
+        }
+        return res;
+    }
+}
+
+const queue = new Queue1();
+queue.enqueue(3, 5, 2, 34);
+console.log(queue.toString(), queue.front(),);
+queue.enqueue(6);
+queue.enqueue(7, 8, 9);
+
+console.log(queue.dequeue(), queue, 999);
+
+module.exports = {Queue1}
