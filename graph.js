@@ -1,9 +1,7 @@
 //图封装：邻接表
 
-
+const {Queue1} = require('./queue')
 const {Dictionary} = require("./dictionary");
-
-const dictionary = new Dictionary();
 
 
 class Graph {
@@ -17,6 +15,7 @@ class Graph {
         }
         this.edges = new Dictionary(obj);
         this.vertexState = obj1
+        this.queue = new Queue1()
     }
 
     hasVertex(v) {
@@ -46,6 +45,8 @@ class Graph {
     bfs(start,callback){
         callback && callback(start)
         this.vertexState[start] = 2
+        this.queue.enqueue(start)
+
         this._bfs(start,callback)
         Object.keys(this.vertexState).map(
             k=>this.vertexState[k]=1
@@ -56,23 +57,25 @@ class Graph {
         //1代表未被访问，2代表访问所有的关联未完成，3代表所有的关联都访问完了
         //callback && callback(start)
         //this.vertexState[start] = 2
-        // console.log(this.edges);
+        // console.log(999,start);
 
         const edges = this.edges.get(start)
+
         edges.map(
             (key,ind)=>{
                 if (this.vertexState[key] === 1){
                     callback && callback(key)
                     this.vertexState[key] = 2
+                    this.queue.enqueue(key)
                 }
             }
         )
         this.vertexState[start] = 3
-        Object.keys(this.vertexState).filter(
-            key=>this.vertexState[key] === 2
-        ).map(
-            k=>this._bfs(k,callback)
-        )
+        this.queue.dequeue(start)
+        // console.log(this.queue,this.vertexState,999);
+        while (this.queue.size()){
+            this._bfs(this.queue.front().data,callback)
+        }
     }
 
     toString(){
@@ -84,7 +87,8 @@ class Graph {
     }
 }
 
-const graph = new Graph(["a", "b", "c", "d", "e", "f", "g", "h", "i"]);
+const graph = new Graph(
+    ["a", "b", "c", "d", "e", "f", "g", "h", "i"]);
 
 graph.addEdge("a", "b");
 graph.addEdge("a", "c");
