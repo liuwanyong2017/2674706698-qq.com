@@ -115,6 +115,21 @@ class Graph {
 
     }
 
+    dfs1(start, callback) {
+        if (this.vertexState[start] === 1) {
+            callback && callback(start);
+            this.vertexState[start] = 2;
+        }
+        this.edges.get(start).map(
+            k => {
+                if (this.vertexState[k] === 1) {
+                    this.dfs1(k, callback);
+                }
+            }
+        );
+        this.initStates();
+    }
+
     toString() {
         return this.vertexes.reduce(
             (a, b) =>
@@ -139,5 +154,9 @@ graph.addEdge("b", "f");
 graph.addEdge("e", "i");
 graph.bfs("a", v => console.log(v));
 console.log(9);
-graph.dfs("a", v => console.log(v));
-// console.log(graph);
+let res = "", res1 = "";
+graph.dfs("a", v => res += v);
+graph.dfs1("a", v => res1 += v);
+
+
+console.log(res, res1);
