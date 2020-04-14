@@ -9,13 +9,14 @@ const dictionary = new Dictionary();
 class Graph {
     constructor(vertexes = []) {
         this.vertexes = vertexes;
-        let obj = {};
+        let obj = {},obj1={};
         if (vertexes.length) {
             vertexes.map(
-                key => obj[key] = []
+                key => obj[key] = [] &&( obj1[key] = 1)
             );
         }
         this.edges = new Dictionary(obj);
+        this.vertexState = obj1
     }
 
     hasVertex(v) {
@@ -26,6 +27,7 @@ class Graph {
         if (!this.hasVertex(v)) return false;
         this.vertexes.push(v);
         this.edges[v] = [];
+        this.vertexState[v] = 1
         return true;
     }
 
@@ -41,6 +43,7 @@ class Graph {
         // console.log(edges2,edges1);
         return true;
     }
+
 
     toString(){
         return this.vertexes.reduce(
