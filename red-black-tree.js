@@ -110,6 +110,15 @@ class RedBlackTree {
             this.root = node;
         }
     }
+
+    remove(val){
+        const list = this.search(val)
+        if (list){
+            
+        }else{
+            return false;
+        }
+    }
 }
 
 const rbt=new RedBlackTree()
