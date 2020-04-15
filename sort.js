@@ -1,4 +1,110 @@
+//系统学习排序方法：
+
+// 封装一个容器
+class ArrayLists {
+    constructor(arr = []) {
+        this.items = arr;
+    }
+
+    insert(val) {
+        this.items.push(val);
+    }
+
+    toString() {
+        return this.items.reduce(
+            (a, b) => a + (a ? " -> " : "") + b, ""
+        );
+    }
+
+    // 冒泡排序
+    bubble() {
+        let count = 0, {items} = this;
+        while (count < items.length - 2) {
+            for (let i = 0; i < items.length - 1 - count; i++) {
+                if (items[i] > items[i + 1]) {
+                    const min = items[i + 1];
+                    items[i + 1] = items[i];
+                    items[i] = min;
+                }
+            }
+            count++;
+        }
+        return items;
+    }
+
+    //优化冒泡排序,有问题的！暂时无问题：
+    bubbleFix() {
+        let start = 0, {items} = this, end = items.length - 1;
+        while (start <= end) {
+            console.log(start, end);
+
+            let min = items[start], max = min,
+                minIndex = [start], maxIndex = [start];
+            for (let i = start; i <= end; i++) {
+                const n = items[i];
+                if (min > n) {
+                    min = n;
+                    minIndex = [i];
+                } else if (min === n && i !== start) {
+                    minIndex.push(i);
+                }
+                if (max < n) {
+                    max = n;
+                    maxIndex = [i];
+                } else if (max === n && i !== start) {
+                    maxIndex.push(i);
+                }
+            }
+            const copy = {},copy1={};
+            console.log(min, minIndex, items);
+
+            minIndex.map(
+                v => {
+                    if (v === start) return start += 1;
+                    const startV = items[start];
+                    if (startV === max){
+                        if(copy1[start]===undefined){
+                            copy[start] = v
+                            copy1[v] = start
+                        }else{
+                            copy[copy1[start]] = v
+                            copy1[v] = copy1[start]
+                        }
+                    }
+                    items[start] = min;
+                    items[v] = startV;
+                    start++;
+                }
+            );
+            console.log(items, start, end, 888, max);
+            for (let i = maxIndex.length - 1; i >= 0; i--) {
+                let ind = maxIndex[i];
+                if (ind !== end) {
+                    if (copy[ind] >= 0) {
+                        ind = copy[ind];
+                    }
+                    items[ind] = items[end];
+                    items[end] = max;
+                }
+                end -= 1;
+            }
+            console.log(start, end, 9999);
+        }
+    }
+}
+
 const arr = [];
+for (let i = 0; i <= 20; i++) {
+    arr.push(Math.floor(Math.random() * 10));
+}
+const lists = new ArrayLists(arr);
+lists.bubbleFix();
+console.log(lists.items);
+
+
+//以前写的排序算法：
+
+const arr1 = [];
 
 for (let i = 0; i < 30; i++) {
     arr.push(Math.round(Math.random() * 100));
@@ -85,14 +191,15 @@ class Sort {
                 this.right -= 1;
             }
         );
-        while(this.right-this.left>1){
-            this.loop1()
+        while (this.right - this.left > 1) {
+            this.loop1();
         }
     }
 }
 
-const sort = new Sort(arr);
+// const sort = new Sort(arr);
 // sort.loop();
 // console.log(arr, sort);
-sort.loop1()
-console.log(sort.data)
+// sort.loop1()
+// console.log(sort.data)
+
