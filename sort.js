@@ -55,20 +55,20 @@ class ArrayLists {
                     maxIndex.push(i);
                 }
             }
-            const copy = {},copy1={};
+            const copy = {}, copy1 = {};
             console.log(min, minIndex, items);
 
             minIndex.map(
                 v => {
                     if (v === start) return start += 1;
                     const startV = items[start];
-                    if (startV === max){
-                        if(copy1[start]===undefined){
-                            copy[start] = v
-                            copy1[v] = start
-                        }else{
-                            copy[copy1[start]] = v
-                            copy1[v] = copy1[start]
+                    if (startV === max) {
+                        if (copy1[start] === undefined) {
+                            copy[start] = v;
+                            copy1[v] = start;
+                        } else {
+                            copy[copy1[start]] = v;
+                            copy1[v] = copy1[start];
                         }
                     }
                     items[start] = min;
@@ -91,14 +91,33 @@ class ArrayLists {
             console.log(start, end, 9999);
         }
     }
+
+    //选择排序
+    selectionSort() {
+        const {items} = this;
+        let min = 0, start = 0;
+        while (start < items.length - 1) {
+            for (let i = start; i <= items.length - 1; i++) {
+                if (items[min] > items[i]) {
+                    min = i;
+                }
+            }
+            let v = items[min];
+            items[min] = items[start];
+            items[start] = v;
+            start +=1;
+            min = start;
+        }
+    }
 }
 
 const arr = [];
 for (let i = 0; i <= 20; i++) {
     arr.push(Math.floor(Math.random() * 10));
 }
+console.log(arr);
 const lists = new ArrayLists(arr);
-lists.bubbleFix();
+lists.selectionSort();
 console.log(lists.items);
 
 
