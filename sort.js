@@ -105,8 +105,58 @@ class ArrayLists {
             let v = items[min];
             items[min] = items[start];
             items[start] = v;
-            start +=1;
+            start += 1;
             min = start;
+        }
+    }
+
+    //插入排序
+    insertSort() {
+        const {items} = this;
+        let count = 1;
+        while (count <= items.length - 1) {
+            for (let i = count; i >= 1; i--) {
+                const current = items[i], last = items[i - 1];
+                if (current < last) {
+                    items[i] = last;
+                    items[i - 1] = current;
+                } else {
+                    break;
+                }
+            }
+            count++;
+        }
+    }
+
+    // 插入排序混合二分法优化
+
+    insertSortFix() {
+        const {items} = this;
+        let count = 1;
+        while (count <= items.length - 1) {
+            const v = items[count]
+            if (count === 1){
+                if (v<items[0]){
+                    items[1] = items[0]
+                    items[0] = v
+                }
+            }else {
+                const x = (start,end)=>{
+                    const mid = Math.round((start+end)/2)
+                    if(items[mid]>v ){
+                        if(items[mid -1]<=v){
+                            for (let i=count;i<=count;i++){
+                                //这里还是要重复原本的方法的操作了，，，跟没优化一个样子了！
+                                //二分法这里并可以快速定位，但是插入和删除操作，依旧跟原来的
+                            }
+                        }
+                    }else {
+
+                    }
+                }
+
+            }
+            count++;
         }
     }
 }
@@ -117,7 +167,7 @@ for (let i = 0; i <= 20; i++) {
 }
 console.log(arr);
 const lists = new ArrayLists(arr);
-lists.selectionSort();
+lists.insertSort();
 console.log(lists.items);
 
 
