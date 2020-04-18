@@ -159,15 +159,66 @@ class ArrayLists {
             count++;
         }
     }
+    // 希尔排序
+    shellSort(){
+        let {items} = this
+        const {length} =items
+        let gap = Math.floor(length/2)
+        let count1 = 0
+        while (gap >=1){
+            const max = Math.round(length/gap)
+            for (let i=0;i<=max;i++){
+                let count = i+ gap
+                while (count<=length-1){
+                    for (let j=count;j>=gap;j-=gap){
+                        const current = items[j]
+                        if(current < items[j-gap]){
+                            items[j] = items[j-gap]
+                            items[j-gap] = current
+                        }else {
+                            break;
+                        }
+                    }
+                    count1++
+                    count += gap
+                }
+            }
+            gap = Math.floor(gap/2)
+        }
+        console.log(count1);
+    }
+    shellSort1(){
+        //尝试写法不一样：
+        const {items}=this
+        const {length} =items
+        let gap = Math.floor(length/2)
+        let count = 0
+        while (gap>=1){
+            for (let i=0;i<length;i++){
+                for (let j=i;j>=gap;j-=gap){
+                    const current = items[j]
+                    if(current<items[j-gap]){
+                        items[j] = items[j-gap]
+                        items[j-gap] = current
+                    }else {
+                        break;
+                    }
+                }
+                count++
+            }
+            gap = Math.floor(gap/2)
+        }
+        console.log(count);
+    }
 }
 
 const arr = [];
-for (let i = 0; i <= 20; i++) {
-    arr.push(Math.floor(Math.random() * 10));
+for (let i = 0; i <= 30; i++) {
+    arr.push(Math.floor(Math.random() * 100));
 }
 console.log(arr);
 const lists = new ArrayLists(arr);
-lists.insertSort();
+lists.shellSort1();
 console.log(lists.items);
 
 
