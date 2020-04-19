@@ -134,81 +134,254 @@ class ArrayLists {
         const {items} = this;
         let count = 1;
         while (count <= items.length - 1) {
-            const v = items[count]
-            if (count === 1){
-                if (v<items[0]){
-                    items[1] = items[0]
-                    items[0] = v
+            const v = items[count];
+            if (count === 1) {
+                if (v < items[0]) {
+                    items[1] = items[0];
+                    items[0] = v;
                 }
-            }else {
-                const x = (start,end)=>{
-                    const mid = Math.round((start+end)/2)
-                    if(items[mid]>v ){
-                        if(items[mid -1]<=v){
-                            for (let i=count;i<=count;i++){
+            } else {
+                const x = (start, end) => {
+                    const mid = Math.round((start + end) / 2);
+                    if (items[mid] > v) {
+                        if (items[mid - 1] <= v) {
+                            for (let i = count; i <= count; i++) {
                                 //这里还是要重复原本的方法的操作了，，，跟没优化一个样子了！
                                 //二分法这里并可以快速定位，但是插入和删除操作，依旧跟原来的
                             }
                         }
-                    }else {
+                    } else {
 
                     }
-                }
+                };
 
             }
             count++;
         }
     }
+
     // 希尔排序
-    shellSort(){
-        let {items} = this
-        const {length} =items
-        let gap = Math.floor(length/2)
-        let count1 = 0
-        while (gap >=1){
-            const max = Math.round(length/gap)
-            for (let i=0;i<=max;i++){
-                let count = i+ gap
-                while (count<=length-1){
-                    for (let j=count;j>=gap;j-=gap){
-                        const current = items[j]
-                        if(current < items[j-gap]){
-                            items[j] = items[j-gap]
-                            items[j-gap] = current
-                        }else {
+    shellSort() {
+        let {items} = this;
+        const {length} = items;
+        let gap = Math.floor(length / 2);
+        let count1 = 0;
+        while (gap >= 1) {
+            const max = Math.round(length / gap);
+            for (let i = 0; i <= max; i++) {
+                let count = i + gap;
+                while (count <= length - 1) {
+                    for (let j = count; j >= gap; j -= gap) {
+                        const current = items[j];
+                        if (current < items[j - gap]) {
+                            items[j] = items[j - gap];
+                            items[j - gap] = current;
+                        } else {
                             break;
                         }
                     }
-                    count1++
-                    count += gap
+                    count1++;
+                    count += gap;
                 }
             }
-            gap = Math.floor(gap/2)
+            gap = Math.floor(gap / 2);
         }
         console.log(count1);
     }
-    shellSort1(){
+
+    shellSort1() {
         //尝试写法不一样：
-        const {items}=this
-        const {length} =items
-        let gap = Math.floor(length/2)
-        let count = 0
-        while (gap>=1){
-            for (let i=0;i<length;i++){
-                for (let j=i;j>=gap;j-=gap){
-                    const current = items[j]
-                    if(current<items[j-gap]){
-                        items[j] = items[j-gap]
-                        items[j-gap] = current
-                    }else {
+        const {items} = this;
+        const {length} = items;
+        let gap = Math.floor(length / 2);
+        let count = 0;
+        while (gap >= 1) {
+            for (let i = 0; i < length; i++) {
+                for (let j = i; j >= gap; j -= gap) {
+                    const current = items[j];
+                    if (current < items[j - gap]) {
+                        items[j] = items[j - gap];
+                        items[j - gap] = current;
+                    } else {
                         break;
                     }
                 }
-                count++
+                count++;
             }
-            gap = Math.floor(gap/2)
+            gap = Math.floor(gap / 2);
         }
         console.log(count);
+    }
+
+    // 快速排序：
+    //找到枢纽：
+    initMid(left, right, arr) {
+        const mid = Math.floor((left+right)/2)
+        if (arr[left] > arr[mid]) {
+            const v = arr[left];
+            arr[left] = arr[mid];
+            arr[mid] = v;
+        }   //保证 mid >= left
+        if (arr[mid] > arr[right]) {
+            const v = arr[mid];
+            arr[mid] = arr[right];
+            arr[right] = v;
+        }  //保证 mid <= right
+        const v = arr[mid];
+        arr[mid] = arr[right - 1];
+        arr[right - 1] = v;
+    }
+
+    __filter(left, right, arr) { //错误版本的！
+        console.log(left, right);
+        if (right - 1 <= left) {
+            const v = arr[left];
+            if (arr[right] < v) {
+                arr[left] = arr[right];
+                arr[right] = v;
+            }
+            return;
+        }
+        ;
+        let mid = Math.floor((left + right) / 2);
+        let nextLeft = left, nextRight = right;
+        this.initMid(left, right, mid, arr);
+        if (right - left === 2) return;
+        right -= 2;
+        const midVul = arr[nextRight - 1];
+        while (left <= right) {
+            if (left === right) {
+                if (arr[left] > midVul) {
+                    arr[nextRight - 1] = arr[left];
+                    arr[left] = midVul;
+                    this._filter(nextLeft, mid - 1, arr);
+                    this._filter(mid + 1, nextRight, arr);
+                    return;
+                } else if (arr[left] === midVul) {
+                    const initMid = mid;
+                    mid += 1;
+                    while (arr[mid] === midVul) {
+                        mid += 1;
+                    }
+                    if (mid + 1 < nextRight - 1) {
+                        arr[nextRight - 1] = arr[mid + 1];
+                        arr[mid + 1] = midVul;
+                        this._filter(nextLeft, initMid - 1, arr);
+                        this._filter(mid + 2, nextRight, arr);
+                        return;
+                    } else {
+                        this._filter(nextLeft, initMid - 1, arr);
+                        this._filter(mid + 1, nextRight, arr);
+                        return;
+                    }
+                } else {
+                    mid += 1;
+                    const initMid = mid;
+                    while (arr[mid] === midVul) {
+                        mid += 1;
+                    }
+                    if (mid + 1 < nextRight - 1) {
+                        arr[nextRight - 1] = arr[mid + 1];
+                        arr[mid + 1] = midVul;
+                        this._filter(nextLeft, initMid - 1, arr);
+                        this._filter(mid + 2, nextRight, arr);
+                        return;
+                    } else {
+                        this._filter(nextLeft, initMid - 1, arr);
+                        this._filter(mid + 1, nextRight, arr);
+                        return;
+                    }
+                }
+            } else {
+                let min, max;
+                while (max === undefined && left < right) {
+                    if (arr[left] > midVul) {
+                        max = arr[left];
+                    } else {
+                        left++;
+                    }
+                }
+                while (min === undefined && left < right) {
+                    if (arr[right] < midVul) {
+                        min = arr[left];
+                    } else {
+                        right--;
+                    }
+                }
+                if (min !== undefined && max !== undefined) {
+                    arr[right] = max;
+                    arr[left] = min;
+                    max = undefined;
+                    min = undefined;
+                    left++;
+                    right--;
+                }
+            }
+        }
+    }
+
+    _filter(left, right, arr) {
+        console.log(left,right);
+        if (right - 1 === left) {
+            const v = arr[right];
+            if (v < arr[left]) {
+                arr[right] = arr[left];
+                arr[left] = v;
+            }
+            return;
+        }
+        this.initMid(left, right, arr);
+        if (left + 2 === right) return;
+        const midV = arr[right - 1], nextLeft = left, nextRight = right;
+        right -= 2;
+        while (left < right) {
+            let min, max;
+            while (max === undefined && left <= right) {
+                if (arr[left] > midV) {
+                    max = arr[left];
+                } else {
+                    if (left===right)return;
+                    left++;
+                }
+            }
+            while (min === undefined && left <= right) {
+                console.log(left,right);
+                if (arr[right] < midV) {
+                    min = arr[right];
+                } else {
+                    if (left===right)return;
+                    right--;
+                }
+            }
+            if (min !== undefined && max !== undefined) {
+                console.log(left,right,arr);
+                arr[left] = min;
+                arr[right] = max;
+                min = undefined;
+                max = undefined;
+                left++;
+                right++;
+            } else if (min!==undefined){
+                arr[nextRight-1]=arr[right+1]
+                arr[right+1]=midV
+                console.log(arr);
+                this._filter(nextLeft,right,arr)
+                return this._filter(right+2,nextRight,arr)
+            }else if (max!==undefined){
+                arr[nextRight-1]=arr[left]
+                arr[left]=midV
+                console.log(arr);
+                this._filter(nextLeft,left-1,arr)
+                return this._filter(left+1,nextRight,arr)
+            }else{
+                return this._filter(nextLeft,nextRight-2,arr)
+            }
+        }
+    }
+
+    fastSort() {
+        const {items} = this;
+        this._filter(0, items.length - 1, items);
     }
 }
 
@@ -218,7 +391,7 @@ for (let i = 0; i <= 30; i++) {
 }
 console.log(arr);
 const lists = new ArrayLists(arr);
-lists.shellSort1();
+lists.fastSort();
 console.log(lists.items);
 
 
