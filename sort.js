@@ -213,175 +213,337 @@ class ArrayLists {
         console.log(count);
     }
 
+    // 交换值
+    exchangeValue(ind1, ind2, arr) {
+        const v = arr[ind1];
+        arr[ind1] = arr[ind2];
+        arr[ind2] = v;
+    }
+
     // 快速排序：
     //找到枢纽：
     initMid(left, right, arr) {
-        const mid = Math.floor((left+right)/2)
+        const mid = Math.floor((left + right) / 2);
         if (arr[left] > arr[mid]) {
-            const v = arr[left];
-            arr[left] = arr[mid];
-            arr[mid] = v;
-        }   //保证 mid >= left
+            this.exchangeValue(left, mid, arr);
+        } //确保mid 位置大
+
         if (arr[mid] > arr[right]) {
-            const v = arr[mid];
-            arr[mid] = arr[right];
-            arr[right] = v;
-        }  //保证 mid <= right
-        const v = arr[mid];
-        arr[mid] = arr[right - 1];
-        arr[right - 1] = v;
+            this.exchangeValue(mid, right, arr);
+            if (arr[left] > arr[mid]) {
+                this.exchangeValue(left, mid, arr);
+            } //确保交换后的mid大
+        } //确保right位大
+        //mid放到right那个最大值的旁边：
+        this.exchangeValue(mid, right - 1, arr);
     }
 
-    __filter(left, right, arr) { //错误版本的！
-        console.log(left, right);
-        if (right - 1 <= left) {
-            const v = arr[left];
-            if (arr[right] < v) {
-                arr[left] = arr[right];
-                arr[right] = v;
+    // __filter(left, right, arr) { //错误版本的！
+    //     console.log(left, right);
+    //     if (right - 1 <= left) {
+    //         const v = arr[left];
+    //         if (arr[right] < v) {
+    //             arr[left] = arr[right];
+    //             arr[right] = v;
+    //         }
+    //         return;
+    //     };
+    //     let mid = Math.floor((left + right) / 2);
+    //     let nextLeft = left, nextRight = right;
+    //     this.initMid(left, right, mid, arr);
+    //     if (right - left === 2) return;
+    //     right -= 2;
+    //     const midVul = arr[nextRight - 1];
+    //     while (left <= right) {
+    //         if (left === right) {
+    //             if (arr[left] > midVul) {
+    //                 arr[nextRight - 1] = arr[left];
+    //                 arr[left] = midVul;
+    //                 this._filter(nextLeft, mid - 1, arr);
+    //                 this._filter(mid + 1, nextRight, arr);
+    //                 return;
+    //             } else if (arr[left] === midVul) {
+    //                 const initMid = mid;
+    //                 mid += 1;
+    //                 while (arr[mid] === midVul) {
+    //                     mid += 1;
+    //                 }
+    //                 if (mid + 1 < nextRight - 1) {
+    //                     arr[nextRight - 1] = arr[mid + 1];
+    //                     arr[mid + 1] = midVul;
+    //                     this._filter(nextLeft, initMid - 1, arr);
+    //                     this._filter(mid + 2, nextRight, arr);
+    //                     return;
+    //                 } else {
+    //                     this._filter(nextLeft, initMid - 1, arr);
+    //                     this._filter(mid + 1, nextRight, arr);
+    //                     return;
+    //                 }
+    //             } else {
+    //                 mid += 1;
+    //                 const initMid = mid;
+    //                 while (arr[mid] === midVul) {
+    //                     mid += 1;
+    //                 }
+    //                 if (mid + 1 < nextRight - 1) {
+    //                     arr[nextRight - 1] = arr[mid + 1];
+    //                     arr[mid + 1] = midVul;
+    //                     this._filter(nextLeft, initMid - 1, arr);
+    //                     this._filter(mid + 2, nextRight, arr);
+    //                     return;
+    //                 } else {
+    //                     this._filter(nextLeft, initMid - 1, arr);
+    //                     this._filter(mid + 1, nextRight, arr);
+    //                     return;
+    //                 }
+    //             }
+    //         } else {
+    //             let min, max;
+    //             while (max === undefined && left < right) {
+    //                 if (arr[left] > midVul) {
+    //                     max = arr[left];
+    //                 } else {
+    //                     left++;
+    //                 }
+    //             }
+    //             while (min === undefined && left < right) {
+    //                 if (arr[right] < midVul) {
+    //                     min = arr[left];
+    //                 } else {
+    //                     right--;
+    //                 }
+    //             }
+    //             if (min !== undefined && max !== undefined) {
+    //                 arr[right] = max;
+    //                 arr[left] = min;
+    //                 max = undefined;
+    //                 min = undefined;
+    //                 left++;
+    //                 right--;
+    //             }
+    //         }
+    //     }
+    // }
+
+    // _filter(left, right, arr) {
+    //     console.log(left, right, "start");
+    //     if (right - 1 === left) {
+    //         if (arr[right] < arr[left]) {
+    //             this.exchangeValue(left,right,arr)
+    //         }
+    //         return;
+    //     }
+    //     this.initMid(left, right, arr);
+    //     if (left + 2 === right) return;
+    //     const midV = arr[right - 1],
+    //         nextLeft = left, nextRight = right;
+    //     right -= 2;
+    //     while (left <= right) {
+    //         let min, max;
+    //         while (max === undefined && left < right) {
+    //             if (arr[left] > midV) {
+    //                 max = arr[left];
+    //             } else {
+    //                 left++;
+    //             }
+    //         }
+    //         while (min === undefined && left < right) {
+    //             if (arr[right] < midV) {
+    //                 min = arr[right];
+    //             } else {
+    //                 right--;
+    //             }
+    //         }
+    //         console.log(left, right, midV, "wh");
+    //
+    //         if (left === right) {
+    //             max = arr[left] > midV ? arr[left] : undefined;
+    //             min = arr[left] < midV ? arr[left] : undefined;
+    //         }
+    //         ;
+    //         if (min !== undefined && max !== undefined) {
+    //             console.log(left, right, arr);
+    //             arr[left] = min;
+    //             arr[right] = max;
+    //             if (left + 1 === right) {
+    //                 arr[nextRight - 1] = max;
+    //                 arr[right] = midV;
+    //                 nextLeft < right - 1 && this._filter(nextLeft, right - 1, arr);
+    //                 return right + 1 < nextRight && this._filter(right + 1, nextRight, arr);
+    //             } else {
+    //                 left++;
+    //                 right--;
+    //             }
+    //         } else if (min !== undefined) {
+    //             arr[nextRight - 1] = arr[right + 1];
+    //             arr[right + 1] = midV;
+    //             console.log(arr, "33");
+    //             this._filter(nextLeft, right, arr);
+    //             return right + 2 < nextRight && this._filter(right + 2, nextRight, arr);
+    //         } else if (max !== undefined) {
+    //             arr[nextRight - 1] = arr[left];
+    //             arr[left] = midV;
+    //             console.log(arr, "44");
+    //             left - 1 > nextLeft && this._filter(nextLeft, left - 1, arr);
+    //             return left + 1 < nextRight && this._filter(left + 1, nextRight, arr);
+    //         } else {
+    //             return nextRight - 2 > nextLeft && this._filter(nextLeft, nextRight - 2, arr);
+    //         }
+    //     }
+    // }
+
+    _filter(left, right, arr) {
+        //判断left === right ,left+1=right;right-2 = left的情况：
+        if (left === right) return;
+        if (left + 1 === right) {
+            if (arr[left] > arr[right]) {
+                this.exchangeValue(left, right, arr);
             }
             return;
         }
-        ;
-        let mid = Math.floor((left + right) / 2);
-        let nextLeft = left, nextRight = right;
-        this.initMid(left, right, mid, arr);
-        if (right - left === 2) return;
+        //找到枢纽，并排序三个数字，交换位置，最后枢纽再交换位置到right-1那！
+        this.initMid(left, right, arr);
+
+        //如果left+2=left，这时候就可以返回了：
+        if (left + 2 === right) return;
+
+        //记录初始的left,right,midValue
+        const nextLeft = left, nextRight = right, midV = arr[right - 1];
+        //枢纽初始化后，占位right-1，right要变
+        console.log(left, right, "start", arr);
+
         right -= 2;
-        const midVul = arr[nextRight - 1];
+
+        //这时候开始正式的差分遍历，交换了：
         while (left <= right) {
-            if (left === right) {
-                if (arr[left] > midVul) {
-                    arr[nextRight - 1] = arr[left];
-                    arr[left] = midVul;
-                    this._filter(nextLeft, mid - 1, arr);
-                    this._filter(mid + 1, nextRight, arr);
-                    return;
-                } else if (arr[left] === midVul) {
-                    const initMid = mid;
-                    mid += 1;
-                    while (arr[mid] === midVul) {
-                        mid += 1;
-                    }
-                    if (mid + 1 < nextRight - 1) {
-                        arr[nextRight - 1] = arr[mid + 1];
-                        arr[mid + 1] = midVul;
-                        this._filter(nextLeft, initMid - 1, arr);
-                        this._filter(mid + 2, nextRight, arr);
-                        return;
-                    } else {
-                        this._filter(nextLeft, initMid - 1, arr);
-                        this._filter(mid + 1, nextRight, arr);
-                        return;
-                    }
+            let min, max;
+            //从做开始寻找大于midV的值，直到找到，或者直到right的位置
+            while (max === undefined && left <= right) {
+                if (arr[left] > midV) {
+                    max = left;
                 } else {
-                    mid += 1;
-                    const initMid = mid;
-                    while (arr[mid] === midVul) {
-                        mid += 1;
-                    }
-                    if (mid + 1 < nextRight - 1) {
-                        arr[nextRight - 1] = arr[mid + 1];
-                        arr[mid + 1] = midVul;
-                        this._filter(nextLeft, initMid - 1, arr);
-                        this._filter(mid + 2, nextRight, arr);
-                        return;
+                    //这里需要判断，假如left=== right的时候：下面没必要了：
+                    if (left === right) {
+                        if (max) {
+                            this.exchangeValue(left, nextRight - 1, arr);
+                            return right - 1 > nextLeft &&
+                                this._filter(nextLeft, right - 1, arr);
+                        } else {
+                            return this._filter(nextLeft, nextRight - 2, arr);
+                        }
                     } else {
-                        this._filter(nextLeft, initMid - 1, arr);
-                        this._filter(mid + 1, nextRight, arr);
-                        return;
+                        left < right && left++;
+                    }
+                    ;
+                }
+            }
+
+            console.log(left, right, arr, midV, "max");
+            //从右开始，寻找小于midV的位置：
+            while (min === undefined && left <= right) {
+                if (arr[right] < midV) {
+                    min = right;
+                } else {
+                    //这里需要判断，假如left=== right的时候：
+                    //分析了一下，left===right的时候，只能有一个min或者max有值，而max可以有值，min无法有值：
+                    if (left === right) {
+                        if (max !== undefined) {
+                            this.exchangeValue(max, nextRight - 1, arr);
+                            console.log(max, "max", nextRight - 1);
+                            max - 1 > nextLeft &&
+                            this._filter(nextLeft, max - 1, arr);
+                            return nextRight > max + 1 &&
+                                this._filter(max + 1, nextRight, arr);
+                        } else {
+                            //没可能
+                        }
+                    } else {
+                        left < right && right--;
                     }
                 }
+            }
+            //max,min都存在的时候
+            this.exchangeValue(max, min, arr);
+            if (left + 1 === right) {
+                this.exchangeValue(right, nextRight - 1, arr);
+                this._filter(nextLeft, left, arr);
+                return nextRight > right + 1 &&
+                    this._filter(right + 1, nextRight, arr);
             } else {
-                let min, max;
-                while (max === undefined && left < right) {
-                    if (arr[left] > midVul) {
-                        max = arr[left];
-                    } else {
-                        left++;
-                    }
-                }
-                while (min === undefined && left < right) {
-                    if (arr[right] < midVul) {
-                        min = arr[left];
-                    } else {
-                        right--;
-                    }
-                }
-                if (min !== undefined && max !== undefined) {
-                    arr[right] = max;
-                    arr[left] = min;
-                    max = undefined;
-                    min = undefined;
-                    left++;
-                    right--;
-                }
+                left++;
+                right++;
             }
         }
     }
 
-    _filter(left, right, arr) {
-        console.log(left,right);
-        if (right - 1 === left) {
-            const v = arr[right];
-            if (v < arr[left]) {
-                arr[right] = arr[left];
-                arr[left] = v;
+    _fastSort(left, right, arr) {
+        console.log(right,left,'start0');
+        if (left >= right) return;
+        if (left + 1 === right) {
+            if (arr[left] > arr[right]) {
+                this.exchangeValue(left, right, arr);
             }
             return;
         }
         this.initMid(left, right, arr);
         if (left + 2 === right) return;
-        const midV = arr[right - 1], nextLeft = left, nextRight = right;
+        const nextLeft = left, nextRight = right, midV = arr[right - 1];
         right -= 2;
+        left++;
+        console.log(right,left,'start1');
         while (left < right) {
             let min, max;
-            while (max === undefined && left <= right) {
+            while (max === undefined && left < right) {
                 if (arr[left] > midV) {
-                    max = arr[left];
+                    max = left;
                 } else {
-                    if (left===right)return;
                     left++;
                 }
             }
-            while (min === undefined && left <= right) {
-                console.log(left,right);
+            while (min === undefined && left < right) {
                 if (arr[right] < midV) {
-                    min = arr[right];
+                    min = right;
                 } else {
-                    if (left===right)return;
                     right--;
                 }
             }
-            if (min !== undefined && max !== undefined) {
-                console.log(left,right,arr);
-                arr[left] = min;
-                arr[right] = max;
-                min = undefined;
-                max = undefined;
+            if (min && max) {
+                this.exchangeValue(min, max, arr);
                 left++;
-                right++;
-            } else if (min!==undefined){
-                arr[nextRight-1]=arr[right+1]
-                arr[right+1]=midV
-                console.log(arr);
-                this._filter(nextLeft,right,arr)
-                return this._filter(right+2,nextRight,arr)
-            }else if (max!==undefined){
-                arr[nextRight-1]=arr[left]
-                arr[left]=midV
-                console.log(arr);
-                this._filter(nextLeft,left-1,arr)
-                return this._filter(left+1,nextRight,arr)
-            }else{
-                return this._filter(nextLeft,nextRight-2,arr)
+                right--;
             }
+            console.log(arr,'内',min,max,midV);
+        }
+        console.log(arr,'外',left,right);
+        if (left === right) {
+            if (arr[left]>midV){
+                this.exchangeValue(left, nextRight - 1,arr);
+                this._fastSort(nextLeft, left - 1, arr);
+                this._fastSort(left + 1, nextRight, arr);
+            }else {
+                if (left+1===right-1){
+                    this._fastSort(nextLeft,left,arr)
+                }else{
+                    this.exchangeValue(left+1, nextRight - 1,arr);
+                    this._fastSort(nextLeft, left , arr);
+                    this._fastSort(left + 2, nextRight, arr);
+                }
+            }
+        }else{
+            this.exchangeValue(left, nextRight - 1,arr);
+            this._fastSort(nextLeft, left - 1, arr);
+            this._fastSort(left + 1, nextRight, arr);
         }
     }
 
     fastSort() {
         const {items} = this;
         this._filter(0, items.length - 1, items);
+    }
+
+    fastSort1() {
+        const {items} = this;
+        this._fastSort(0, items.length - 1, items);
     }
 }
 
@@ -391,7 +553,7 @@ for (let i = 0; i <= 30; i++) {
 }
 console.log(arr);
 const lists = new ArrayLists(arr);
-lists.fastSort();
+lists.fastSort1();
 console.log(lists.items);
 
 
