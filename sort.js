@@ -477,7 +477,7 @@ class ArrayLists {
     }
 
     _fastSort(left, right, arr) {
-        console.log(right,left,'start0');
+        console.log(right, left, "start0");
         if (left >= right) return;
         if (left + 1 === right) {
             if (arr[left] > arr[right]) {
@@ -490,7 +490,7 @@ class ArrayLists {
         const nextLeft = left, nextRight = right, midV = arr[right - 1];
         right -= 2;
         left++;
-        console.log(right,left,'start1');
+        console.log(right, left, "start1");
         while (left < right) {
             let min, max;
             while (max === undefined && left < right) {
@@ -512,28 +512,24 @@ class ArrayLists {
                 left++;
                 right--;
             }
-            console.log(arr,'内',min,max,midV);
+            console.log(arr, "内", min, max, midV);
         }
-        console.log(arr,'外',left,right);
-        if (left === right) {
-            if (arr[left]>midV){
-                this.exchangeValue(left, nextRight - 1,arr);
-                this._fastSort(nextLeft, left - 1, arr);
-                this._fastSort(left + 1, nextRight, arr);
-            }else {
-                if (left+1===right-1){
-                    this._fastSort(nextLeft,left,arr)
-                }else{
-                    this.exchangeValue(left+1, nextRight - 1,arr);
-                    this._fastSort(nextLeft, left , arr);
-                    this._fastSort(left + 2, nextRight, arr);
-                }
-            }
-        }else{
-            this.exchangeValue(left, nextRight - 1,arr);
+        console.log(arr, "外", left, right);
+
+        if (arr[left] > midV) {
+            this.exchangeValue(left, nextRight - 1, arr);
             this._fastSort(nextLeft, left - 1, arr);
             this._fastSort(left + 1, nextRight, arr);
+        } else {
+            if (left + 1 === right - 1) {
+                this._fastSort(nextLeft, left, arr);
+            } else {
+                this.exchangeValue(left + 1, nextRight - 1, arr);
+                this._fastSort(nextLeft, left, arr);
+                this._fastSort(left + 2, nextRight, arr);
+            }
         }
+
     }
 
     fastSort() {
