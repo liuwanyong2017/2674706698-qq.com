@@ -1,37 +1,47 @@
-
 //面试算法题：
 
 // 写一个 mySetInterVal(fn, a, b),每次间隔 a,a+b,a+2b 的时间，
 //然后写一个 myClear，停止上面的 mySetInterVal
-let  delayObj = {a:a+b,[a+b]:a+2b,[a+2b]:a},
-delay = a,nextDelay = ()=>delayObj[delay]
 
-const mySetInterval = (fn,a,b)=>{
-    let timer;
-    const interval = ()=>{
+
+const mySetInterval = (fn, a, b) => {
+    let delayObj = {
+            [a]: a + b,
+            [a + b]: a + (2 * b),
+            [a + (2 * b)]: a
+        },
+        delay = a,
+        nextDelay = () => delayObj[delay],
+        timer;
+    const interval = () => {
         timer = setTimeout(
-            ()=>{
+            () => {
                 delay = nextDelay()
                 fn()
                 interval()
-            },delay
+            }, delay * 1000
         )
     }
     interval()
-    return ()=>{
+    return () => {
         clearTimeout(timer)
         delay = a
     }
 
 }
-const clear = mySetInterVal(
-    ()=>{
-        console.log(6)
-    },1,2
-)
+let i = 0,
+    timer1 = setInterval(() => {
+        i++
+    }, 1000);
+const clear = mySetInterval(
+    () => {
+        console.log(6, 'i=', i)
+    }, 1, 2
+);
 
 setTimeout(
-    ()=>{
+    () => {
         clear()
-    },20
+        clearInterval(timer1)
+    }, 10000
 )
