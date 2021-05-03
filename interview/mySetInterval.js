@@ -15,32 +15,32 @@ const mySetInterval = (fn, a, b) => {
     const interval = () => {
         timer = setTimeout(
             () => {
-                delay = nextDelay()
-                fn()
-                interval()
+                delay = nextDelay();
+                fn();
+                interval();
             }, delay * 1000
-        )
-    }
-    interval()
+        );
+    };
+    interval();
     return () => {
-        clearTimeout(timer)
-        delay = a
-    }
+        clearTimeout(timer);
+        delay = a;
+    };
 
-}
+};
 let i = 0,
     timer1 = setInterval(() => {
-        i++
+        i++;
     }, 1000);
 const clear = mySetInterval(
     () => {
-        console.log(6, 'i=', i)
+        console.log(6, "i=", i);
     }, 1, 2
 );
 
 setTimeout(
     () => {
-        clear()
-        clearInterval(timer1)
+        clear();
+        clearInterval(timer1);
     }, 10000
-)
+);
