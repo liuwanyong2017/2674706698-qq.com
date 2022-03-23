@@ -44,3 +44,4 @@ setTimeout(
         clearInterval(timer1);
     }, 10000
 );
+
