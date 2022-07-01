@@ -2,7 +2,7 @@
  * @Author: liuwanyong2017 2674706698@qq.com
  * @Date: 2022-07-01 01:19:40
  * @LastEditors: liuwanyong2017 2674706698@qq.com
- * @LastEditTime: 2022-07-01 01:33:00
+ * @LastEditTime: 2022-07-01 11:47:38
  * @FilePath: /dataStructure/js-base/new.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,5 +13,20 @@ function privateNew(f, ...args) {
   }
   const obj = Object.create(f.prototype)
   const res = f.apply(obj, args)
-  return (typeof res === 'object' || typeof res === 'function')?res :obj
+  return typeof res === 'object' || typeof res === 'function' ? res : obj
+}
+{
+  //原型，原型链
+  function F(params) {}
+  //构造函数
+  F.prototype //实例共享的属性和方法
+  let f = new F()
+  Object.getPrototypeOf(f) //这个指针就是f的原型，指向的地址就是F.prototype
+  //修改原型
+  let proto1 = F.prototype
+  F.prototype = {}
+  proto1 !== F.prototype
+  f.constructor === F
+  Object.getPrototypeOf(f) === proto1
+  //这就是关系了，虽然修改了F的prototype。但是原本的f的原型被f保留了下来了。
 }
