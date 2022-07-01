@@ -2,7 +2,7 @@
  * @Author: liuwanyong2017 2674706698@qq.com
  * @Date: 2022-07-01 01:19:40
  * @LastEditors: liuwanyong2017 2674706698@qq.com
- * @LastEditTime: 2022-07-01 16:30:27
+ * @LastEditTime: 2022-07-01 16:39:15
  * @FilePath: /dataStructure/js-base/new.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -33,8 +33,21 @@ function privateNew(f, ...args) {
 {
   //原型链的终点：可以通俗的说，确实是万物都是对象，所以原型链的根源会是Object上面，
   console.log(Object.prototype)
-  console.log(Object.prototype.__proto__);
-//   [Object: null prototype] {}
-// null
-//根源就是 null
+  console.log(Object.prototype.__proto__)
+  //   [Object: null prototype] {}
+  // null
+  //根源就是 null
+}
+{
+  //判断非原型链上的属性方法：
+  function F(name) {
+    this.name = name
+  }
+F.prototype.age =10
+  const f = new F('liu')
+
+  f.getName = function getName() {
+    return this.name
+  }
+  console.log(f.age,f.hasOwnProperty('age'), f.hasOwnProperty('name'))
 }
