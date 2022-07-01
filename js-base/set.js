@@ -2,7 +2,7 @@
  * @Author: liuwanyong2017 2674706698@qq.com
  * @Date: 2022-07-01 16:54:19
  * @LastEditors: liuwanyong2017 2674706698@qq.com
- * @LastEditTime: 2022-07-01 17:26:35
+ * @LastEditTime: 2022-07-01 17:34:27
  * @FilePath: /dataStructure/js-base/set.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -33,8 +33,22 @@
   console.log(s.size)
   s.add({})
   s.add({})
-  console.log(s);
-//   1
-// 1
-// Set(3) { NaN, {}, {} }
+  console.log(s)
+  //   1
+  // 1
+  // Set(3) { NaN, {}, {} }
+}
+{
+  //属性方法
+  let s = new Set()
+  s.add(2).add(3).add(2) //返回值为它本身
+  console.log(s.size)
+  console.log(s.has(2))
+  console.log(s.delete(2), s.has(2))
+  s.clear()
+  console.log(s)
+  //   2
+  // true
+  // true false
+  // Set(0) {}
 }
