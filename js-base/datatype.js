@@ -2,7 +2,7 @@
  * @Author: liuwanyong2017 2674706698@qq.com
  * @Date: 2022-07-01 00:21:17
  * @LastEditors: liuwanyong2017 2674706698@qq.com
- * @LastEditTime: 2022-07-01 00:57:39
+ * @LastEditTime: 2022-07-01 11:18:28
  * @FilePath: /dataStructure/js-base/datatype.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -39,4 +39,17 @@
   //   false
   //   true
   //   true
+}
+
+{
+  //constructor
+  function F(params) {}
+  let f1 = new F()
+  F.prototype = new Array() //改变原型
+  let f = new F()
+  console.log(f.constructor === F)
+  console.log(f.constructor === Array)
+  // false
+  // true
+  console.log(f1.constructor === F) //true
 }
