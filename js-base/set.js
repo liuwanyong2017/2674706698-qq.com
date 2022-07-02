@@ -2,7 +2,7 @@
  * @Author: liuwanyong2017 2674706698@qq.com
  * @Date: 2022-07-01 16:54:19
  * @LastEditors: liuwanyong2017 2674706698@qq.com
- * @LastEditTime: 2022-07-02 10:48:15
+ * @LastEditTime: 2022-07-02 10:55:21
  * @FilePath: /dataStructure/js-base/set.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -76,7 +76,21 @@
   s.forEach((v, k) => {
     console.log(v, k)
   })
-  for(let v of s){  //可以直接用
-      console.log(v);
+  for (let v of s) {
+    //可以直接用
+    console.log(v)
   }
+}
+{
+  //遍历的应用
+  let s = new Set([1, 23, 4]),
+    arr = [...s]
+  //扩展运算符
+  //交集
+  let s1 = new Set([1, 24, 4])
+  new Set(arr.filter(v => s1.has(v)))
+  //并集
+  new Set([...arr,...s1])
+  //差集
+  new Set(arr.filter(v=>!s1.has(v)))
 }
