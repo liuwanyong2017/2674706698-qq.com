@@ -2,7 +2,7 @@
  * @Author: liuwanyong2017 2674706698@qq.com
  * @Date: 2022-07-01 16:54:19
  * @LastEditors: liuwanyong2017 2674706698@qq.com
- * @LastEditTime: 2022-07-01 18:17:59
+ * @LastEditTime: 2022-07-02 10:48:15
  * @FilePath: /dataStructure/js-base/set.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -53,7 +53,30 @@
   // Set(0) {}
 }
 {
-//tobe Array
-Array.from(new Set([1,2,2,4]))
-//[1,2,4]
+  //tobe Array
+  Array.from(new Set([1, 2, 2, 4]))
+  //[1,2,4]
+}
+{
+  //遍历方法：是顺序遍历，很重要的，跟遍历对象随机遍历不一样
+  let s = new Set(['red', 1, '4', null, undefined])
+  console.log(s)
+  // Set(5) { 'red', 1, '4', null, undefined }
+  for (let i of s.keys()) {
+    console.log(i)
+  }
+  for (let v of s.values()) {
+    console.log(v)
+  }
+  for (let i of s.entries()) {
+    console.log(i)
+  }
+  //   ['red', 'red']
+  //[(1, 1)][('4', '4')][(null, null)][(undefined, undefined)]
+  s.forEach((v, k) => {
+    console.log(v, k)
+  })
+  for(let v of s){  //可以直接用
+      console.log(v);
+  }
 }
